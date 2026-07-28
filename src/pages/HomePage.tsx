@@ -164,8 +164,8 @@ const BrandsSection: React.FC = () => (
     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
       {/* Text */}
       <div className="max-w-md text-right lg:ml-auto lg:translate-x-32">
-        <h2 className="text-[41px]">Brands</h2>
-        <p className="mt-8 text-[16px] leading-relaxed text-zinc-500">
+        <h2>Brands</h2>
+        <p className="mt-8 leading-relaxed text-zinc-500">
           Creating a campaign briefing is as easy as ordering a pizza. Our AI analyzes 300 million
           creator profiles to assemble a cluster of creators that's perfectly tailored to your brand,
           your target audience, and your campaign goals.

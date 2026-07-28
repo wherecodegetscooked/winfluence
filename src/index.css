@@ -3,22 +3,22 @@
 @tailwind utilities;
 
 @layer base {
-  /* Body: Roboto Light, 13px (Brand-Vorgabe). */
+  /* Body: Roboto Light, 16px. */
   body {
     background-color: #ffffff;
     color: #18181b;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Ueberschriften: Roboto Light, 36px, CMYK 0/0/0/80 = #333333. */
+  /* Ueberschriften: Roboto Light, 41px, CMYK 0/0/0/80 = #333333. */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    font-size: 36px;
+    font-size: 41px;
     line-height: 1.15;
     color: #333333;
   }
