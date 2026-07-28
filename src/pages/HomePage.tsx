@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { RefreshCw, ChevronDown } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import { Placeholder } from '../components';
 import {
   siteConfig,
   brandLogos,
   heroCollage,
   caseStudies,
-  dashboardTalents,
 } from '../constants';
 
 export const HomePage: React.FC = () => {
@@ -161,7 +160,7 @@ const StatTile: React.FC<{ value: string; label: string; tone: 'neutral' | 'acce
 /* Brands                                                              */
 /* ------------------------------------------------------------------ */
 const BrandsSection: React.FC = () => (
-  <section id="brands" className="py-24 md:py-32">
+  <section id="brands" className="overflow-hidden py-24 md:py-32">
     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
       {/* Text */}
       <div className="max-w-md lg:pl-8">
@@ -183,61 +182,11 @@ const BrandsSection: React.FC = () => (
 );
 
 const DashboardMockup: React.FC = () => (
-  <div className="relative">
-    <div className="rounded-2xl bg-white border border-zinc-200 shadow-2xl shadow-zinc-900/10 overflow-hidden">
-      {/* Topbar */}
-      <div className="flex items-center gap-6 px-5 py-3 border-b border-zinc-100 text-xs">
-        <span className="font-black text-accent text-sm">F</span>
-        <span className="text-zinc-400">Campaigns</span>
-        <span className="text-zinc-400">Marketplace</span>
-        <span className="font-semibold text-zinc-900">Talent</span>
-      </div>
-
-      <div className="p-4">
-        <div className="flex items-center justify-between text-[11px] text-zinc-500 mb-3">
-          <span className="font-semibold">49,337 Talents</span>
-          <span className="flex items-center gap-1">
-            Sort by reach high to low <ChevronDown size={12} />
-          </span>
-        </div>
-
-        {/* Filter */}
-        <div className="grid grid-cols-2 gap-2 mb-4">
-          {['All channels', 'All categories', 'Any gender', 'All countries'].map((f) => (
-            <div
-              key={f}
-              className="flex items-center justify-between px-3 py-2 rounded-md border border-zinc-200 text-[11px] text-zinc-500"
-            >
-              {f} <ChevronDown size={12} />
-            </div>
-          ))}
-        </div>
-
-        {/* Talent-Liste */}
-        <div className="space-y-2">
-          {dashboardTalents.map((t) => (
-            <div
-              key={t.name}
-              className="flex items-center gap-3 p-2 rounded-lg border border-zinc-100"
-            >
-              <Placeholder label="" className="w-12 h-12 shrink-0" rounded="rounded-md" />
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold text-zinc-900 truncate">{t.name}</p>
-                <p className="text-[10px] text-zinc-500 truncate">
-                  {t.category} · {t.country}
-                </p>
-                <span className="mt-1 inline-block text-[10px] font-semibold text-accent">Invite</span>
-              </div>
-              <div className="text-right shrink-0">
-                <p className="text-xs font-bold text-zinc-900">{t.reach}</p>
-                <p className="text-[9px] text-zinc-400">potential reach</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
+  <img
+    src="/brands-laptop.jpeg"
+    alt="Laptop-Ansicht der winfluence Plattform"
+    className="h-auto w-full lg:translate-x-1/3"
+  />
 );
 
 /* ------------------------------------------------------------------ */
