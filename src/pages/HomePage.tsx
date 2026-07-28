@@ -27,7 +27,7 @@ const Hero: React.FC = () => (
   <section className="relative overflow-hidden pt-32 md:pt-40 pb-28 lg:min-h-[900px]">
     <div className="max-w-7xl mx-auto px-6">
       {/* Text-Spalte */}
-      <div className="max-w-xl lg:max-w-md">
+      <div className="ml-[38px] max-w-xl lg:max-w-md">
         <img src="/winfluence_logo.png" alt="winfluence" className="h-7 md:h-9 w-auto" />
         <h1 className="mt-16 md:mt-24 tracking-tight">
           Connecting
