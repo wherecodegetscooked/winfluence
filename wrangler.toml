@@ -1,0 +1,11 @@
+name = "website-template"
+main = "./worker.js"
+compatibility_date = "2026-04-02"
+
+# Worker mit Static Assets: der Worker laeuft vor dem Asset-Binding und
+# liefert die gebaute SPA aus.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = true
