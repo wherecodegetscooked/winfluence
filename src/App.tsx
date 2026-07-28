@@ -12,6 +12,8 @@ import {
 import type { Page } from './types';
 import { siteConfig } from './constants';
 
+export type Language = 'en' | 'de';
+
 // Gueltige Pfad-Segmente -> Page.
 const routablePages: Page[] = [
   'about',
@@ -25,6 +27,7 @@ const routablePages: Page[] = [
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [language, setLanguage] = useState<Language>('en');
 
   // Pfad -> Page. Neue Route hier ergaenzen.
   useEffect(() => {
@@ -68,7 +71,7 @@ const App: React.FC = () => {
       case 'impressum': return <ImprintPage />;
       case 'datenschutz': return <PrivacyPage />;
       case 'nutzungsbedingungen': return <TermsPage />;
-      default: return <HomePage />;
+      default: return <HomePage language={language} />;
     }
   };
 
@@ -78,6 +81,8 @@ const App: React.FC = () => {
         scrolled={scrolled}
         currentPage={currentPage}
         navigateTo={navigateTo}
+        language={language}
+        toggleLanguage={() => setLanguage((current) => (current === 'en' ? 'de' : 'en'))}
       />
 
       <main className="flex-1">

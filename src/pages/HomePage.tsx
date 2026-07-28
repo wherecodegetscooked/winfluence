@@ -7,14 +7,27 @@ import {
   heroCollage,
   caseStudies,
 } from '../constants';
+import type { Language } from '../App';
 
-export const HomePage: React.FC = () => {
+const caseStudyTranslations: Record<string, string> = {
+  "Levi's": "Levi's arbeitete mit uns zusammen, um das Gesicht der neuen Line-8-Kollektion zu finden. Aus über 3'000 Einsendungen wurden drei Finalist:innen ausgewählt und über die Social-Media-Kanäle der Marke der Öffentlichkeit zur Wahl gestellt. Der Launch wurde von i-D, Elle, Vogue, Glamour und InStyle begleitet und gewann in drei Wochen mehr als 200'000 Follower:innen in den sozialen Medien.",
+  DillySocks:
+    'DillySocks arbeitete mit einem Cluster von Lifestyle-Creators zusammen, um die saisonale Kollektion zu lancieren. Der automatisierte Briefing-Prozess verband innerhalb von 48 Stunden 24 Creators mit der Marke und lieferte authentischen Content für Instagram und TikTok.',
+  'THE CAPRA':
+    'THE CAPRA Saas-Fee bespielte die Wintersaison mit einer kuratierten Gruppe von Travel- und Wellness-Creators. Die Kampagne lief vom Briefing bis zur Auszahlung vollautomatisiert und lieferte fortlaufend hochwertigen alpinen Content.',
+};
+
+interface HomePageProps {
+  language: Language;
+}
+
+export const HomePage: React.FC<HomePageProps> = ({ language }) => {
   return (
     <>
-      <Hero />
-      <CreatorsSection />
-      <BrandsSection />
-      <CaseStudySection />
+      <Hero language={language} />
+      <CreatorsSection language={language} />
+      <BrandsSection language={language} />
+      <CaseStudySection language={language} />
     </>
   );
 };
@@ -22,7 +35,7 @@ export const HomePage: React.FC = () => {
 /* ------------------------------------------------------------------ */
 /* Hero                                                                */
 /* ------------------------------------------------------------------ */
-const Hero: React.FC = () => (
+const Hero: React.FC<{ language: Language }> = ({ language }) => (
   <section className="relative overflow-hidden pt-32 md:pt-40 pb-28 lg:min-h-[900px]">
     <div className="max-w-7xl mx-auto px-6">
       {/* Text-Spalte */}
@@ -38,11 +51,15 @@ const Hero: React.FC = () => (
           brands with creators
         </h1>
         <p className="mt-10 text-zinc-500 leading-relaxed max-w-md">
-          {siteConfig.description}
+          {language === 'de'
+            ? 'winfluence nutzt Daten, um passende Creator-Cluster zusammenzustellen, und automatisiert den Kampagnenprozess – vom Briefing bis zur erfolgreichen Zusammenarbeit.'
+            : siteConfig.description}
         </p>
 
         <p className="mt-24 md:mt-28 text-[17px] text-zinc-500">
-          Some of the {siteConfig.brandsCount} brands we work with…
+          {language === 'de'
+            ? `Einige der ${siteConfig.brandsCount} Marken, mit denen wir arbeiten…`
+            : `Some of the ${siteConfig.brandsCount} brands we work with…`}
         </p>
         {/* Gemeinsame Unterkante hält die unterschiedlich proportionierten Logos optisch auf einer Höhe. */}
         <div className="mt-8 flex flex-wrap items-end gap-x-4 gap-y-5">
@@ -96,7 +113,7 @@ const HeroCollage: React.FC = () => (
 /* ------------------------------------------------------------------ */
 /* Case Studies                                                        */
 /* ------------------------------------------------------------------ */
-const CaseStudySection: React.FC = () => {
+const CaseStudySection: React.FC<{ language: Language }> = ({ language }) => {
   const [index, setIndex] = useState(0);
   const study = caseStudies[index];
   const next = () => setIndex((i) => (i + 1) % caseStudies.length);
@@ -109,7 +126,7 @@ const CaseStudySection: React.FC = () => {
           <div className="max-w-md">
             <Placeholder label={`${study.brand} Logo`} className="h-16 w-32" rounded="rounded-md" />
             <p className="mt-8 leading-relaxed text-zinc-700">
-              {study.body}
+              {language === 'de' ? caseStudyTranslations[study.brand] : study.body}
             </p>
           </div>
 
@@ -122,8 +139,16 @@ const CaseStudySection: React.FC = () => {
 
           {/* Statistiken */}
           <div className="flex flex-row lg:flex-col gap-4">
-            <StatTile value={study.stats[0].value} label={study.stats[0].label} tone="neutral" />
-            <StatTile value={study.stats[1].value} label={study.stats[1].label} tone="accent" />
+            <StatTile
+              value={study.stats[0].value}
+              label={language === 'de' ? 'Einträge' : study.stats[0].label}
+              tone="neutral"
+            />
+            <StatTile
+              value={study.stats[1].value}
+              label={language === 'de' ? 'Impressionen' : study.stats[1].label}
+              tone="accent"
+            />
           </div>
         </div>
 
@@ -133,7 +158,7 @@ const CaseStudySection: React.FC = () => {
             className="inline-flex items-center gap-3 text-zinc-700 hover:text-black transition-colors font-medium"
           >
             <RefreshCw size={20} strokeWidth={1.75} />
-            Next case study
+            {language === 'de' ? 'Nächste Case Study' : 'Next case study'}
           </button>
         </div>
       </div>
@@ -159,19 +184,19 @@ const StatTile: React.FC<{ value: string; label: string; tone: 'neutral' | 'acce
 /* ------------------------------------------------------------------ */
 /* Brands                                                              */
 /* ------------------------------------------------------------------ */
-const BrandsSection: React.FC = () => (
+const BrandsSection: React.FC<{ language: Language }> = ({ language }) => (
   <section id="brands" className="overflow-hidden py-24 md:py-32">
     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
       {/* Text */}
       <div className="max-w-md text-right lg:ml-auto lg:translate-x-32">
         <h2>Brands</h2>
         <p className="mt-8 leading-relaxed text-zinc-500">
-          Creating a campaign briefing is as easy as ordering a pizza. Our AI analyzes 300 million
-          creator profiles to assemble a cluster of creators that's perfectly tailored to your brand,
-          your target audience, and your campaign goals.
+          {language === 'de'
+            ? 'Ein Kampagnen-Briefing zu erstellen ist so einfach wie eine Pizza zu bestellen. Unsere KI analysiert 300 Millionen Creator-Profile und stellt einen Cluster zusammen, der perfekt zu deiner Marke, deiner Zielgruppe und deinen Kampagnenzielen passt.'
+            : "Creating a campaign briefing is as easy as ordering a pizza. Our AI analyzes 300 million creator profiles to assemble a cluster of creators that's perfectly tailored to your brand, your target audience, and your campaign goals."}
         </p>
         <div className="mt-10">
-          <OutlineButton>Sign up</OutlineButton>
+          <OutlineButton>{language === 'de' ? 'Registrieren' : 'Sign up'}</OutlineButton>
         </div>
       </div>
 
@@ -192,7 +217,7 @@ const DashboardMockup: React.FC = () => (
 /* ------------------------------------------------------------------ */
 /* Creators                                                            */
 /* ------------------------------------------------------------------ */
-const CreatorsSection: React.FC = () => (
+const CreatorsSection: React.FC<{ language: Language }> = ({ language }) => (
   <section id="creators" className="py-24 md:py-32">
     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
       {/* Phone-Mockup */}
@@ -204,11 +229,12 @@ const CreatorsSection: React.FC = () => (
       <div className="max-w-md">
         <h2>Creators</h2>
         <p className="mt-8 leading-relaxed text-zinc-500">
-          Find a Callab that's right for you, apply, get hired, post, and get paid – all fully
-          automated.
+          {language === 'de'
+            ? 'Finde eine passende Callab, bewirb dich, werde ausgewählt, poste und erhalte deine Vergütung – alles vollautomatisiert.'
+            : "Find a Callab that's right for you, apply, get hired, post, and get paid – all fully automated."}
         </p>
         <div className="mt-10">
-          <OutlineButton>Apply</OutlineButton>
+          <OutlineButton>{language === 'de' ? 'Bewerben' : 'Apply'}</OutlineButton>
         </div>
       </div>
     </div>

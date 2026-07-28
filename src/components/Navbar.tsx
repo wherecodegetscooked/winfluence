@@ -1,23 +1,27 @@
 import React from 'react';
 import { LogIn } from 'lucide-react';
 import type { Page } from '../types';
+import type { Language } from '../App';
 
 interface NavbarProps {
   scrolled: boolean;
   currentPage: Page;
   navigateTo: (page: Page) => void;
+  language: Language;
+  toggleLanguage: () => void;
 }
 
 // Minimale Topbar wie im Design: rechts Sprache (DE), App-Icon und Login.
-export const Navbar: React.FC<NavbarProps> = ({ navigateTo }) => {
+export const Navbar: React.FC<NavbarProps> = ({ navigateTo, language, toggleLanguage }) => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white">
       <div className="max-w-[1600px] mx-auto px-8 h-16 flex items-center justify-end gap-6">
         <button
           className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors"
-          aria-label="Sprache waehlen"
+          onClick={toggleLanguage}
+          aria-label="Sprache wechseln"
         >
-          DE
+          {language === 'en' ? 'DE' : 'EN'}
         </button>
 
         <a
