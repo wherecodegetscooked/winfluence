@@ -38,7 +38,7 @@ const Hero: React.FC = () => (
           {siteConfig.description}
         </p>
 
-        <p className="mt-24 md:mt-28 text-zinc-500">
+        <p className="mt-24 md:mt-28 text-[17px] text-zinc-500">
           Some of the {siteConfig.brandsCount} brands we work with…
         </p>
         {/* Gemeinsame Unterkante hält die unterschiedlich proportionierten Logos optisch auf einer Höhe. */}
