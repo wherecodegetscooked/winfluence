@@ -20,9 +20,14 @@ export const Navbar: React.FC<NavbarProps> = ({ navigateTo }) => {
           DE
         </button>
 
-        <button onClick={() => navigateTo('home')} aria-label="winfluence Marketplace">
+        <a
+          href="https://id-preview--b7ac1314-5b25-4b53-a5d1-c0d303fc0ec8.lovable.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="winfluence Marketplace"
+        >
           <img src="/marketplace_logo.png" alt="winfluence Marketplace" className="h-9 w-9 rounded-lg object-contain" />
-        </button>
+        </a>
 
         <button
           onClick={() => navigateTo('contact')}
