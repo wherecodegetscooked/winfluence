@@ -28,7 +28,11 @@ const Hero: React.FC = () => (
     <div className="max-w-7xl mx-auto px-6">
       {/* Text-Spalte */}
       <div className="ml-[38px] max-w-xl lg:max-w-md">
-        <img src="/winfluence_logo.png" alt="winfluence" className="h-7 md:h-9 w-auto" />
+        <img
+          src="/winfluence_logo.png"
+          alt="winfluence"
+          className="-ml-[38px] h-7 w-auto md:h-9"
+        />
         <h1 className="mt-16 md:mt-24 tracking-tight">
           Connecting
           <br />
