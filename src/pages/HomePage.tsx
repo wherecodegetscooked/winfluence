@@ -42,7 +42,7 @@ const Hero: React.FC = () => (
           Some of the {siteConfig.brandsCount} brands we work with…
         </p>
         {/* Gemeinsame Unterkante hält die unterschiedlich proportionierten Logos optisch auf einer Höhe. */}
-        <div className="mt-8 flex flex-wrap items-end gap-x-8 gap-y-5">
+        <div className="mt-8 flex flex-wrap items-end gap-x-4 gap-y-5">
           {brandLogos.map((b) => (
             <div key={b.name} className="h-9 sm:h-11 flex items-end shrink-0">
               <img
