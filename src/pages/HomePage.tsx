@@ -245,7 +245,7 @@ const PhoneMockup: React.FC = () => (
   <img
     src="/screen.png"
     alt="winfluence Marketplace in der Creator-App"
-    className="h-auto w-[182px] shadow-[0_12px_30px_rgba(0,0,0,0.2)] sm:w-[210px]"
+    className="h-auto w-[182px] sm:w-[210px]"
   />
 );
 
