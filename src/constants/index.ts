@@ -45,7 +45,7 @@ export const allBrandLogos: { name: string; src: string; sizeClassName?: string 
     src: '/brand-logos/belhair_1024x1024.png',
     sizeClassName: 'max-h-[36%] max-w-[55%]',
   },
-  { name: 'Benedict', src: '/Brand Logos/Benedict.png' },
+  { name: 'Benedict', src: '/brand-logos/benedict_1024x1024.png' },
   { name: 'Black Swan Academy', src: '/Brand Logos/Blackswanacademy.webp' },
   { name: 'THE CAPRA', src: '/brand-logos/capra_1024x1024.png' },
   { name: 'Chrigis Sport Shop', src: '/Brand Logos/Chrigissportshop.png' },
