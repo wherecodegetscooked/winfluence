@@ -62,17 +62,25 @@ const Hero: React.FC<{ language: Language }> = ({ language }) => (
             ? `Einige der ${siteConfig.brandsCount} Marken, mit denen wir arbeiten…`
             : `Some of the ${siteConfig.brandsCount} brands we work with…`}
         </p>
-        {/* Gleich breite Rasterzellen sorgen unabhängig vom Logoformat für exakte Abstände. */}
-        <div className="mt-8 grid grid-cols-3 items-center gap-x-5 gap-y-6 sm:grid-cols-6">
-          {brandLogos.map((b) => (
-            <div key={b.name} className="flex h-12 min-w-0 items-center justify-center">
-              <img
-                src={b.src}
-                alt={b.name}
-                className="block max-h-10 w-full max-w-full object-contain"
-              />
-            </div>
-          ))}
+        <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+          {/* Gleich breite Rasterzellen sorgen unabhängig vom Logoformat für exakte Abstände. */}
+          <div className="grid w-full grid-cols-3 items-center gap-x-5 gap-y-6 sm:w-[468px] sm:grid-cols-6">
+            {brandLogos.map((b) => (
+              <div key={b.name} className="flex h-12 min-w-0 items-center justify-center">
+                <img
+                  src={b.src}
+                  alt={b.name}
+                  className="block max-h-10 w-full max-w-full object-contain"
+                />
+              </div>
+            ))}
+          </div>
+          <a
+            href="/brands"
+            className="inline-flex h-12 shrink-0 items-center text-base font-light leading-relaxed text-accent transition-colors hover:text-zinc-900"
+          >
+            all brands
+          </a>
         </div>
       </div>
 

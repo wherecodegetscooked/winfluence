@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Navbar, Footer } from './components';
 import {
   HomePage,
+  BrandsPage,
   AboutPage,
   ContactPage,
   VisionPage,
@@ -16,6 +17,7 @@ export type Language = 'en' | 'de';
 
 // Gueltige Pfad-Segmente -> Page.
 const routablePages: Page[] = [
+  'brands',
   'about',
   'contact',
   'vision',
@@ -65,6 +67,7 @@ const App: React.FC = () => {
 
   const renderPage = () => {
     switch (currentPage) {
+      case 'brands': return <BrandsPage language={language} />;
       case 'about': return <AboutPage />;
       case 'contact': return <ContactPage />;
       case 'vision': return <VisionPage language={language} />;

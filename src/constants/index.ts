@@ -38,6 +38,22 @@ export const brandLogos: { name: string; src: string }[] = [
   { name: 'KALTE LUST', src: '/brand-logos/kaltelust_1024x1024.png' },
 ];
 
+export const allBrandLogos: { name: string; src: string }[] = [
+  { name: 'abeauty', src: '/brand-logos/abeauty_1024x1024.png' },
+  { name: 'B-beautyful', src: '/Brand Logos/B-beautyful.png' },
+  { name: 'Bel Hair', src: '/brand-logos/belhair_1024x1024.png' },
+  { name: 'Benedict', src: '/Brand Logos/Benedict.png' },
+  { name: 'Black Swan Academy', src: '/Brand Logos/Blackswanacademy.webp' },
+  { name: 'THE CAPRA', src: '/brand-logos/capra_1024x1024.png' },
+  { name: 'Chrigis Sport Shop', src: '/Brand Logos/Chrigissportshop.png' },
+  { name: 'DillySocks', src: '/brand-logos/Dillysocks_1024x1024.png' },
+  { name: 'Eternal Echo', src: '/Brand Logos/Eternalecho.png' },
+  { name: 'Goldeneider', src: '/Brand Logos/Goldeneider.png' },
+  { name: 'JUST Style', src: '/brand-logos/juststyle_1024x1024.png' },
+  { name: 'KALTE LUST', src: '/brand-logos/kaltelust_1024x1024.png' },
+  { name: 'Solabs', src: '/Brand Logos/Solabs.png' },
+];
+
 // Bildcollage im Hero (rechte Spalte), versetzt wie im Design.
 // Drei fluide Spalten; jede mit eigenem vertikalen Versatz (offset).
 // Die Creator-Fotos haben das Marken-Logo bereits eingebettet.

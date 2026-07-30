@@ -3,6 +3,7 @@
 // Der Wert entspricht direkt dem Pfad-Segment (/datenschutz etc.).
 export type Page =
   | 'home'
+  | 'brands'
   | 'about'
   | 'contact'
   | 'vision'
