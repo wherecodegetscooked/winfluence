@@ -10,7 +10,8 @@ import {
 import type { Language } from '../App';
 
 const caseStudyTranslations: Record<string, string> = {
-  "Levi's": "Levi's arbeitete mit uns zusammen, um das Gesicht der neuen Line-8-Kollektion zu finden. Aus über 3'000 Einsendungen wurden drei Finalist:innen ausgewählt und über die Social-Media-Kanäle der Marke der Öffentlichkeit zur Wahl gestellt. Der Launch wurde von i-D, Elle, Vogue, Glamour und InStyle begleitet und gewann in drei Wochen mehr als 200'000 Follower:innen in den sozialen Medien.",
+  "Levi's":
+    'winfluence hat den Nachweis erbracht, dass viele Micro-Influencer mit einer hohen Engagement-Rate besser performen, als ein Makro-Influencer. Die Abwicklung war einfach und wir erreichten mit einem kleine Budget eine spektakuläre Reichweite bei der Gen-Z.',
   DillySocks:
     'DillySocks arbeitete mit einem Cluster von Lifestyle-Creators zusammen, um die saisonale Kollektion zu lancieren. Der automatisierte Briefing-Prozess verband innerhalb von 48 Stunden 24 Creators mit der Marke und lieferte authentischen Content für Instagram und TikTok.',
   'THE CAPRA':

@@ -86,7 +86,7 @@ export const caseStudies: CaseStudy[] = [
   {
     brand: "Levi's",
     body:
-      "Levi's partnered with us to find the face of their new Line 8 collection. 3 finalists were chosen from over 3,000 entries and put to the public via the brand's social channels to choose the winner. The launch was covered by i-D, Elle, Vogue, Glamour and InStyle, and in three weeks attracted more than 200,000 followers on Social Media.",
+      'winfluence has demonstrated that many micro-influencers with high engagement rates perform better than macro-influencers. The process was straightforward, and we achieved spectacular reach among Gen Z on a small budget.',
     stats: [
       { value: '3,000 +', label: 'Entries' },
       { value: '315M', label: 'Impressions' },
