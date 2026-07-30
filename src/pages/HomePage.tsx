@@ -77,7 +77,7 @@ const Hero: React.FC<{ language: Language }> = ({ language }) => (
           </div>
           <a
             href="/brands"
-            className="inline-flex h-12 shrink-0 items-center text-base font-light leading-relaxed text-accent transition-colors hover:text-zinc-900"
+            className="inline-flex h-12 shrink-0 items-center text-base font-light leading-relaxed text-zinc-500 transition-colors hover:text-zinc-900"
           >
             all brands
           </a>
