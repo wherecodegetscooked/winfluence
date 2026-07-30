@@ -1,7 +1,12 @@
 import React from 'react';
 import { LegalLayout, LegalSection, LegalList } from './LegalLayout';
+import type { Language } from '../App';
 
-export const TermsPage: React.FC = () => (
+interface TermsPageProps {
+  language: Language;
+}
+
+const GermanTermsPage: React.FC = () => (
   <LegalLayout title="Nutzungsbestimmungen" meta="Stand: Juli 2026">
     <LegalSection heading="1. Geltungsbereich">
       <p>
@@ -122,3 +127,126 @@ export const TermsPage: React.FC = () => (
     </LegalSection>
   </LegalLayout>
 );
+
+const EnglishTermsPage: React.FC = () => (
+  <LegalLayout title="Terms of Use" meta="Last updated: July 2026">
+    <LegalSection heading="1. Scope">
+      <p>
+        These Terms of Use govern the use of the website winfluence.net (hereinafter the
+        “Website”). By accessing the Website, you agree to these Terms of Use.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="2. Purpose of the Website">
+      <p>
+        The Website provides information about our company, services, and products and enables you
+        to contact our company. There is no entitlement to uninterrupted availability of the
+        Website.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="3. Use of the Website">
+      <p>
+        The Website may be used only in accordance with applicable law. In particular, it is
+        prohibited to:
+      </p>
+      <LegalList
+        items={[
+          'misuse the Website,',
+          'circumvent security mechanisms,',
+          'introduce malware,',
+          'carry out automated access without consent,',
+          'manipulate or alter content without authorisation,',
+          'infringe the rights of third parties.',
+        ]}
+      />
+    </LegalSection>
+
+    <LegalSection heading="4. User accounts">
+      <p>Where user accounts are offered, users undertake to:</p>
+      <LegalList
+        items={[
+          'keep their login details confidential,',
+          'use secure passwords,',
+          'notify us immediately of any suspected misuse.',
+        ]}
+      />
+      <p>
+        Users are liable for all activities carried out through their user accounts to the extent
+        that they are at fault. We reserve the right to suspend or delete user accounts in the event
+        of misuse or violations of these Terms of Use.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="5. Website content">
+      <p>All content is created with the greatest possible care. Nevertheless, we give no warranty regarding:</p>
+      <LegalList
+        items={['accuracy,', 'completeness,', 'timeliness,', 'availability of the content.']}
+      />
+      <p>
+        The content is provided solely for general information and does not constitute binding
+        advice.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="6. Intellectual property">
+      <p>All content on this Website, in particular:</p>
+      <LegalList
+        items={['texts', 'images', 'graphics', 'logos', 'videos', 'documents', 'software']}
+      />
+      <p>
+        is protected by copyright or other intellectual property rights. Content may not be
+        reproduced, published, distributed, or used commercially without our prior written consent.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="7. Third-party links">
+      <p>
+        Our Website may contain links to third-party websites. We accept no responsibility for
+        their content, privacy practices, or availability. When visiting external websites, only
+        their own terms of use and privacy policies apply.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="8. Liability">
+      <p>
+        To the extent permitted by law, we are liable only for damage caused by intentional or
+        grossly negligent conduct. Liability for indirect damage, consequential damage, loss of
+        profit, or loss of data is excluded to the extent permitted by law. We accept no liability
+        for damage resulting from technical faults, interruptions, or outages of the Website.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="9. Availability">
+      <p>
+        We endeavour to operate the Website with as few interruptions as possible. However,
+        maintenance work, security updates, or technical faults may result in temporary limitations
+        or interruptions.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="10. Data protection">
+      <p>
+        The processing of personal data is governed by our Privacy Policy.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="11. Amendments">
+      <p>
+        We reserve the right to amend these Terms of Use at any time. The current version published
+        on our Website applies.
+      </p>
+    </LegalSection>
+
+    <LegalSection heading="12. Governing law and jurisdiction">
+      <p>
+        These Terms of Use are governed exclusively by the substantive laws of Switzerland. To the
+        extent permitted by law, the registered office of winfluence GmbH is the exclusive place of
+        jurisdiction.
+      </p>
+    </LegalSection>
+  </LegalLayout>
+);
+
+export const TermsPage: React.FC<TermsPageProps> = ({ language }) =>
+  language === 'de' ? <GermanTermsPage /> : <EnglishTermsPage />;
