@@ -175,7 +175,9 @@ const BrandsSection: React.FC<{ language: Language }> = ({ language }) => (
             : "Creating a campaign briefing is as easy as ordering a pizza. Our AI analyzes 300 million creator profiles to assemble a cluster of creators that's perfectly tailored to your brand, your target audience, and your campaign goals."}
         </p>
         <div className="mt-10">
-          <OutlineButton>{language === 'de' ? 'Registrieren' : 'Sign up'}</OutlineButton>
+          <OutlineButton href="https://brand.winfluence.net">
+            {language === 'de' ? 'Registrieren' : 'Sign up'}
+          </OutlineButton>
         </div>
       </div>
 
@@ -231,8 +233,20 @@ const PhoneMockup: React.FC = () => (
 /* ------------------------------------------------------------------ */
 /* Shared                                                              */
 /* ------------------------------------------------------------------ */
-const OutlineButton: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <button className="px-12 py-4 rounded-lg border border-zinc-300 text-zinc-700 hover:border-accent hover:text-accent transition-colors">
-    {children}
-  </button>
-);
+const OutlineButton: React.FC<{ children: React.ReactNode; href?: string }> = ({
+  children,
+  href,
+}) => {
+  const className =
+    'inline-block px-12 py-4 rounded-lg border border-zinc-300 text-zinc-700 hover:border-accent hover:text-accent transition-colors';
+
+  return href ? (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  ) : (
+    <button type="button" className={className}>
+      {children}
+    </button>
+  );
+};
