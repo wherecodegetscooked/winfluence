@@ -208,7 +208,7 @@ const BrandsSection: React.FC<{ language: Language }> = ({ language }) => (
 
 const DashboardMockup: React.FC = () => (
   <img
-    src="/brands-laptop.jpeg"
+    src="/brands-laptop.png"
     alt="Laptop-Ansicht der winfluence Plattform"
     className="h-auto w-full lg:translate-x-1/3"
   />
