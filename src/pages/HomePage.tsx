@@ -210,12 +210,12 @@ const CreatorsSection: React.FC<{ language: Language }> = ({ language }) => (
   <section id="creators" className="py-24 md:py-32">
     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
       {/* Phone-Mockup */}
-      <div className="flex justify-center lg:justify-end">
+      <div className="order-2 flex justify-center lg:order-1 lg:justify-end">
         <PhoneMockup />
       </div>
 
       {/* Text */}
-      <div className="max-w-md">
+      <div className="order-1 max-w-md lg:order-2">
         <h2>Creators</h2>
         <p className="mt-8 leading-relaxed text-zinc-500">
           {language === 'de'
