@@ -14,12 +14,12 @@ export const BrandsPage: React.FC<BrandsPageProps> = ({ language }) => (
         {allBrandLogos.map((brand) => (
           <div
             key={brand.name}
-            className="flex aspect-square items-center justify-center border-b border-r border-zinc-200 p-6"
+            className="flex aspect-square min-w-0 items-center justify-center overflow-hidden border-b border-r border-zinc-200 p-6"
           >
             <img
               src={brand.src}
               alt={brand.name}
-              className="max-h-[50%] max-w-[75%] object-contain"
+              className={`${brand.sizeClassName ?? 'max-h-[50%] max-w-[75%]'} object-contain`}
             />
           </div>
         ))}
