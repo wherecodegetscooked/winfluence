@@ -43,7 +43,7 @@ export const AboutPage: React.FC = () => (
           <img
             src={member.image}
             alt={member.name}
-            className="aspect-square w-full object-cover"
+            className="aspect-square w-full rounded-[4px] object-cover"
           />
           <div>
             <strong className="block font-medium text-zinc-900">{member.name}</strong>
