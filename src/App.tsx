@@ -67,7 +67,7 @@ const App: React.FC = () => {
     switch (currentPage) {
       case 'about': return <AboutPage />;
       case 'contact': return <ContactPage />;
-      case 'vision': return <VisionPage />;
+      case 'vision': return <VisionPage language={language} />;
       case 'impressum': return <ImprintPage />;
       case 'datenschutz': return <PrivacyPage />;
       case 'nutzungsbedingungen': return <TermsPage />;
