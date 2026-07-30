@@ -79,7 +79,7 @@ export const heroCollage: CollageColumn[] = [
 export interface CaseStudy {
   brand: string;
   body: string;
-  stats: { value: string; label: string }[];
+  image?: string;
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -87,28 +87,17 @@ export const caseStudies: CaseStudy[] = [
     brand: "Levi's",
     body:
       'winfluence has demonstrated that many micro-influencers with high engagement rates perform better than macro-influencers. The process was straightforward, and we achieved spectacular reach among Gen Z on a small budget.',
-    stats: [
-      { value: '3,000 +', label: 'Entries' },
-      { value: '315M', label: 'Impressions' },
-    ],
+    image: '/case-studies/screen_jost.png',
   },
   {
     brand: 'DillySocks',
     body:
       'DillySocks worked with a cluster of lifestyle creators to launch their seasonal collection. The automated briefing process matched 24 creators to the brand in under 48 hours and delivered authentic content across Instagram and TikTok.',
-    stats: [
-      { value: '24', label: 'Creators' },
-      { value: '4.2M', label: 'Impressions' },
-    ],
   },
   {
     brand: 'THE CAPRA',
     body:
       'THE CAPRA Saas-Fee filled its winter season with a curated group of travel and wellness creators. The campaign ran fully automated from briefing to payout and produced a steady stream of premium alpine content.',
-    stats: [
-      { value: '18', label: 'Creators' },
-      { value: '1.9M', label: 'Impressions' },
-    ],
   },
 ];
 

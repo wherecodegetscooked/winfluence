@@ -122,35 +122,28 @@ const CaseStudySection: React.FC<{ language: Language }> = ({ language }) => {
   return (
     <section id="cases" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid lg:grid-cols-[1fr_auto_auto] gap-8 lg:gap-10 items-center">
-          {/* Logo + Text */}
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
+          {/* Text */}
           <div className="max-w-md">
-            <Placeholder label={`${study.brand} Logo`} className="h-16 w-32" rounded="rounded-md" />
-            <p className="mt-8 leading-relaxed text-zinc-700">
+            <p className="leading-relaxed text-zinc-700">
               {language === 'de' ? caseStudyTranslations[study.brand] : study.body}
             </p>
           </div>
 
-          {/* Zentrales Bild */}
-          <Placeholder
-            label={`${study.brand} Kampagne`}
-            className="w-full max-w-sm aspect-[4/5] lg:w-80"
-            rounded="rounded-sm"
-          />
-
-          {/* Statistiken */}
-          <div className="flex flex-row lg:flex-col gap-4">
-            <StatTile
-              value={study.stats[0].value}
-              label={language === 'de' ? 'Einträge' : study.stats[0].label}
-              tone="neutral"
+          {/* Kampagnenbild */}
+          {study.image ? (
+            <img
+              src={study.image}
+              alt={`${study.brand} Kampagne`}
+              className="h-auto w-full max-w-sm rounded-sm lg:w-80"
             />
-            <StatTile
-              value={study.stats[1].value}
-              label={language === 'de' ? 'Impressionen' : study.stats[1].label}
-              tone="accent"
+          ) : (
+            <Placeholder
+              label={`${study.brand} Kampagne`}
+              className="aspect-[4/5] w-full max-w-sm lg:w-80"
+              rounded="rounded-sm"
             />
-          </div>
+          )}
         </div>
 
         <div className="mt-16 flex justify-center">
@@ -166,21 +159,6 @@ const CaseStudySection: React.FC<{ language: Language }> = ({ language }) => {
     </section>
   );
 };
-
-const StatTile: React.FC<{ value: string; label: string; tone: 'neutral' | 'accent' }> = ({
-  value,
-  label,
-  tone,
-}) => (
-  <div
-    className={`flex flex-col justify-center items-start px-8 py-8 w-40 h-40 ${
-      tone === 'accent' ? 'bg-[#f9e3da]' : 'bg-zinc-100'
-    }`}
-  >
-    <span className="text-3xl md:text-4xl font-medium text-zinc-900 whitespace-nowrap">{value}</span>
-    <span className="mt-2 text-sm text-zinc-500">{label}</span>
-  </div>
-);
 
 /* ------------------------------------------------------------------ */
 /* Brands                                                              */
