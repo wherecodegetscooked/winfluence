@@ -135,7 +135,7 @@ const CaseStudySection: React.FC<{ language: Language }> = ({ language }) => {
             <img
               src={study.image}
               alt={`${study.brand} Kampagne`}
-              className="h-auto w-full max-w-sm rounded-sm lg:w-80"
+              className="h-auto w-full max-w-sm rounded-[4px] border border-zinc-200 lg:w-80"
             />
           ) : (
             <Placeholder
