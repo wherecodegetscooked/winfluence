@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogIn } from 'lucide-react';
+import { LogIn, Megaphone } from 'lucide-react';
 import type { Page } from '../types';
 import type { Language } from '../App';
 
@@ -29,8 +29,9 @@ export const Navbar: React.FC<NavbarProps> = ({ navigateTo, language, toggleLang
           target="_blank"
           rel="noopener noreferrer"
           aria-label="winfluence Marketplace"
+          className="flex h-9 w-9 items-center justify-center text-zinc-700 transition-colors hover:text-zinc-900"
         >
-          <img src="/marketplace_logo.png" alt="winfluence Marketplace" className="h-9 w-9 rounded-lg object-contain" />
+          <Megaphone size={20} strokeWidth={1.75} aria-hidden="true" />
         </a>
 
         <button
