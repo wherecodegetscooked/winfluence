@@ -30,29 +30,29 @@ export const siteConfig = {
 
 // Marken-Logos im Hero-Streifen ("Some of the 103 brands we work with…").
 export const brandLogos: { name: string; src: string }[] = [
-  { name: 'abeauty', src: '/brand-logos/abeauty_1024x1024.png' },
-  { name: 'DillySocks', src: '/brand-logos/Dillysocks_1024x1024.png' },
-  { name: 'THE CAPRA', src: '/brand-logos/capra_1024x1024.png' },
-  { name: 'JUST Style', src: '/brand-logos/juststyle_1024x1024.png' },
-  { name: 'Bel Hair', src: '/brand-logos/belhair_1024x1024.png' },
-  { name: 'KALTE LUST', src: '/brand-logos/kaltelust_1024x1024.png' },
+  { name: 'abeauty', src: '/Brand Logos_1024x1024/abeauty_1024x1024.png' },
+  { name: 'DillySocks', src: '/Brand Logos_1024x1024/Dillysocks_1024x1024.png' },
+  { name: 'THE CAPRA', src: '/Brand Logos_1024x1024/capra_1024x1024.png' },
+  { name: 'JUST Style', src: '/Brand Logos_1024x1024/juststyle_1024x1024.png' },
+  { name: 'Bel Hair', src: '/Brand Logos_1024x1024/belhair_1024x1024.png' },
+  { name: 'KALTE LUST', src: '/Brand Logos_1024x1024/kaltelust_1024x1024.png' },
 ];
 
 export const allBrandLogos: { name: string; src: string; sizeClassName?: string }[] = [
-  { name: 'abeauty', src: '/brand-logos/abeauty_1024x1024.png' },
+  { name: 'abeauty', src: '/Brand Logos_1024x1024/abeauty_1024x1024.png' },
   {
     name: 'Bel Hair',
-    src: '/brand-logos/belhair_1024x1024.png',
+    src: '/Brand Logos_1024x1024/belhair_1024x1024.png',
     sizeClassName: 'max-h-[36%] max-w-[55%]',
   },
-  { name: 'Benedict', src: '/brand-logos/benedict_1024x1024.png' },
-  { name: 'Black Swan Academy', src: '/Brand Logos/Blackswanacademy.webp' },
-  { name: 'THE CAPRA', src: '/brand-logos/capra_1024x1024.png' },
-  { name: 'Chrigis Sport Shop', src: '/Brand Logos/Chrigissportshop.png' },
-  { name: 'DillySocks', src: '/brand-logos/Dillysocks_1024x1024.png' },
-  { name: 'JUST Style', src: '/brand-logos/juststyle_1024x1024.png' },
-  { name: 'KALTE LUST', src: '/brand-logos/kaltelust_1024x1024.png' },
-  { name: 'Solabs', src: '/Brand Logos/Solabs.png' },
+  { name: 'Benedict', src: '/Brand Logos_1024x1024/benedict_1024x1024.png' },
+  { name: 'Black Swan Academy', src: '/Brand Logos_1024x1024/blackswanacademy_1024x1024.png' },
+  { name: 'THE CAPRA', src: '/Brand Logos_1024x1024/capra_1024x1024.png' },
+  { name: 'Chrigis Sport Shop', src: '/Brand Logos_1024x1024/chrigissportshop_1024x1024.png' },
+  { name: 'DillySocks', src: '/Brand Logos_1024x1024/Dillysocks_1024x1024.png' },
+  { name: 'JUST Style', src: '/Brand Logos_1024x1024/juststyle_1024x1024.png' },
+  { name: 'KALTE LUST', src: '/Brand Logos_1024x1024/kaltelust_1024x1024.png' },
+  { name: 'Solabs', src: '/Brand Logos_1024x1024/solabs_1024x1024.png' },
 ];
 
 // Bildcollage im Hero (rechte Spalte), versetzt wie im Design.
