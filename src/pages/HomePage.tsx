@@ -61,14 +61,14 @@ const Hero: React.FC<{ language: Language }> = ({ language }) => (
             ? `Einige der ${siteConfig.brandsCount} Marken, mit denen wir arbeiten…`
             : `Some of the ${siteConfig.brandsCount} brands we work with…`}
         </p>
-        {/* Gemeinsame Unterkante hält die unterschiedlich proportionierten Logos optisch auf einer Höhe. */}
-        <div className="mt-8 flex flex-wrap items-end gap-x-4 gap-y-5">
+        {/* Gleich breite Rasterzellen sorgen unabhängig vom Logoformat für exakte Abstände. */}
+        <div className="mt-8 grid grid-cols-3 items-center gap-x-5 gap-y-6 sm:grid-cols-6">
           {brandLogos.map((b) => (
-            <div key={b.name} className="h-9 sm:h-11 flex items-end shrink-0">
+            <div key={b.name} className="flex h-12 min-w-0 items-center justify-center">
               <img
                 src={b.src}
                 alt={b.name}
-                className="max-h-full w-auto max-w-[7rem] object-contain"
+                className="block max-h-10 w-full max-w-full object-contain"
               />
             </div>
           ))}

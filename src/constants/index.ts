@@ -30,12 +30,12 @@ export const siteConfig = {
 
 // Marken-Logos im Hero-Streifen ("Some of the 103 brands we work with…").
 export const brandLogos: { name: string; src: string }[] = [
-  { name: 'Abeauty', src: '/Brand Logos/Abeauty.png' },
-  { name: 'DillySocks', src: '/logos/dillysocks.jpeg' },
-  { name: 'THE CAPRA', src: '/logos/capra.jpg' },
-  { name: 'JUST Style', src: '/logos/juststyle.png' },
-  { name: 'Bel Hair', src: '/logos/belhair.png' },
-  { name: 'KALTE LUST', src: '/logos/kaltelust.png' },
+  { name: 'abeauty', src: '/brand-logos/abeauty_1024x1024.png' },
+  { name: 'DillySocks', src: '/brand-logos/Dillysocks_1024x1024.png' },
+  { name: 'THE CAPRA', src: '/brand-logos/capra_1024x1024.png' },
+  { name: 'JUST Style', src: '/brand-logos/juststyle_1024x1024.png' },
+  { name: 'Bel Hair', src: '/brand-logos/belhair_1024x1024.png' },
+  { name: 'KALTE LUST', src: '/brand-logos/kaltelust_1024x1024.png' },
 ];
 
 // Bildcollage im Hero (rechte Spalte), versetzt wie im Design.
