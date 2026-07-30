@@ -89,7 +89,7 @@ const App: React.FC = () => {
         {renderPage()}
       </main>
 
-      <Footer navigateTo={navigateTo} />
+      <Footer navigateTo={navigateTo} language={language} />
     </div>
   );
 };
