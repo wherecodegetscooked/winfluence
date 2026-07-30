@@ -215,7 +215,9 @@ const CreatorsSection: React.FC<{ language: Language }> = ({ language }) => (
             : "Find a Callab that's right for you, apply, get hired, post, and get paid – all fully automated."}
         </p>
         <div className="mt-10">
-          <OutlineButton>{language === 'de' ? 'Bewerben' : 'Apply'}</OutlineButton>
+          <OutlineButton href="https://creator.winfluence.net/">
+            {language === 'de' ? 'Bewerben' : 'Apply'}
+          </OutlineButton>
         </div>
       </div>
     </div>
