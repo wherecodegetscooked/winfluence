@@ -221,7 +221,7 @@ const CreatorsSection: React.FC<{ language: Language }> = ({ language }) => (
   <section id="creators" className="py-24 md:py-32">
     <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
       {/* Phone-Mockup */}
-      <div className="flex justify-center lg:justify-start">
+      <div className="flex justify-center lg:justify-end">
         <PhoneMockup />
       </div>
 
@@ -245,7 +245,7 @@ const PhoneMockup: React.FC = () => (
   <img
     src="/screen.png"
     alt="winfluence Marketplace in der Creator-App"
-    className="w-[260px] sm:w-[300px] h-auto shadow-2xl shadow-zinc-900/30"
+    className="h-auto w-[182px] shadow-[0_12px_30px_rgba(0,0,0,0.2)] sm:w-[210px]"
   />
 );
 
