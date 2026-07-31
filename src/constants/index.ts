@@ -128,7 +128,7 @@ export const caseStudies: CaseStudy[] = [
     image: '/case-studies/the-capra.png',
     imageWidth: 567,
     imageHeight: 791,
-    attribution: 'Vanessa Ducoloné, Marketingleiterin',
+    attribution: 'VANESSA DUCOLONÉ, Marketingleiterin',
   },
 ];
 
