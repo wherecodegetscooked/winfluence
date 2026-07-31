@@ -125,6 +125,9 @@ export const caseStudies: CaseStudy[] = [
     brand: 'THE CAPRA',
     body:
       'THE CAPRA Saas-Fee filled its winter season with a curated group of travel and wellness creators. The campaign ran fully automated from briefing to payout and produced a steady stream of premium alpine content.',
+    image: '/case-studies/the-capra.png',
+    imageWidth: 567,
+    imageHeight: 791,
   },
 ];
 
