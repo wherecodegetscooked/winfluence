@@ -97,6 +97,9 @@ export interface CaseStudy {
   brand: string;
   body: string;
   image?: string;
+  attribution?: string;
+  followers?: string;
+  profileUrl?: string;
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -107,9 +110,12 @@ export const caseStudies: CaseStudy[] = [
     image: '/case-studies/screen_jost.png',
   },
   {
-    brand: 'DillySocks',
-    body:
-      'DillySocks worked with a cluster of lifestyle creators to launch their seasonal collection. The automated briefing process matched 24 creators to the brand in under 48 hours and delivered authentic content across Instagram and TikTok.',
+    brand: 'Joshua Tyrell',
+    body: 'First of all, I wanted to say that I think your concept is really great!',
+    image: '/case-studies/joshua-tyrell.png',
+    attribution: 'JOSHUA TYRELL',
+    followers: '645.000',
+    profileUrl: 'https://www.instagram.com/joshtyrell/?hl=de#',
   },
   {
     brand: 'THE CAPRA',

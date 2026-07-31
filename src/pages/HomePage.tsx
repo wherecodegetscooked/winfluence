@@ -134,8 +134,27 @@ const CaseStudySection: React.FC<{ language: Language }> = ({ language }) => {
           {/* Text */}
           <div className="max-w-md">
             <p className="leading-relaxed text-zinc-700">
-              {language === 'de' ? caseStudyTranslations[study.brand] : study.body}
+              {language === 'de' ? (caseStudyTranslations[study.brand] ?? study.body) : study.body}
             </p>
+            {study.attribution && (
+              <p className="mt-6 leading-relaxed text-zinc-700">
+                {study.attribution}
+                {study.followers && study.profileUrl && (
+                  <>
+                    {', '}
+                    <a
+                      href={study.profileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-black"
+                    >
+                      {study.followers}
+                    </a>{' '}
+                    Follower
+                  </>
+                )}
+              </p>
+            )}
           </div>
 
           {/* Kampagnenbild */}
