@@ -64,7 +64,7 @@ const Hero: React.FC<{ language: Language }> = ({ language }) => (
         </p>
         <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
           {/* Gleich breite Rasterzellen sorgen unabhängig vom Logoformat für exakte Abstände. */}
-          <div className="grid w-full grid-cols-3 items-center gap-x-5 gap-y-6 sm:w-[702px] sm:shrink-0 sm:grid-cols-6 sm:gap-x-[30px]">
+          <div className="grid w-full grid-cols-3 items-center gap-x-5 gap-y-6 sm:w-[649.5px] sm:shrink-0 sm:grid-cols-6 sm:gap-x-[19.5px]">
             {brandLogos.map((b) => (
               <div key={b.name} className="flex h-[72px] min-w-0 items-center justify-center">
                 <img
