@@ -139,17 +139,10 @@ const CaseStudySection: React.FC<{ language: Language }> = ({ language }) => {
             {study.attribution && (
               <p className="mt-6 leading-relaxed text-zinc-700">
                 {study.attribution}
-                {study.followers && study.profileUrl && (
+                {study.followers && (
                   <>
                     {', '}
-                    <a
-                      href={study.profileUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-black"
-                    >
-                      {study.followers}
-                    </a>{' '}
+                    <strong className="font-bold">{study.followers}</strong>{' '}
                     Follower
                   </>
                 )}

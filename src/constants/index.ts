@@ -99,7 +99,6 @@ export interface CaseStudy {
   image?: string;
   attribution?: string;
   followers?: string;
-  profileUrl?: string;
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -115,7 +114,6 @@ export const caseStudies: CaseStudy[] = [
     image: '/case-studies/joshua-tyrell.png',
     attribution: 'JOSHUA TYRELL',
     followers: '645.000',
-    profileUrl: 'https://www.instagram.com/joshtyrell/?hl=de#',
   },
   {
     brand: 'THE CAPRA',
