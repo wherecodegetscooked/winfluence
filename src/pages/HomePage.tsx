@@ -157,7 +157,7 @@ const CaseStudySection: React.FC<{ language: Language }> = ({ language }) => {
         <div className="mt-16 flex justify-center">
           <button
             onClick={next}
-            className="inline-flex items-center gap-3 text-zinc-700 hover:text-black transition-colors font-medium"
+            className="inline-flex items-center gap-3 leading-relaxed text-zinc-700 transition-colors hover:text-black"
           >
             <RefreshCw size={20} strokeWidth={1.75} />
             {language === 'de' ? 'Nächste Case Study' : 'Next case study'}
