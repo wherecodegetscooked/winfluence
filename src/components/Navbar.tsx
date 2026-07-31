@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({ navigateTo, language, toggleLang
         </button>
 
         <a
-          href="https://id-preview--b7ac1314-5b25-4b53-a5d1-c0d303fc0ec8.lovable.app"
+          href="https://marketplace.winfluence.net"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="winfluence Marketplace"
