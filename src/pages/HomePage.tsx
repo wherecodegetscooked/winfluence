@@ -14,6 +14,8 @@ const caseStudyTranslations: Record<string, string> = {
     'winfluence hat den Nachweis erbracht, dass viele Micro-Influencer mit einer hohen Engagement-Rate besser performen, als ein Makro-Influencer. Die Abwicklung war einfach und wir erreichten mit einem kleine Budget eine spektakuläre Reichweite bei der Gen-Z.',
   DillySocks:
     'DillySocks arbeitete mit einem Cluster von Lifestyle-Creators zusammen, um die saisonale Kollektion zu lancieren. Der automatisierte Briefing-Prozess verband innerhalb von 48 Stunden 24 Creators mit der Marke und lieferte authentischen Content für Instagram und TikTok.',
+  'Joshua Tyrell':
+    'Zunächst einmal wollte ich sagen, dass ich euer Konzept wirklich grossartig finde!',
   'THE CAPRA':
     'THE CAPRA Saas-Fee bespielte die Wintersaison mit einer kuratierten Gruppe von Travel- und Wellness-Creators. Die Kampagne lief vom Briefing bis zur Auszahlung vollautomatisiert und lieferte fortlaufend hochwertigen alpinen Content.',
 };
@@ -142,7 +144,18 @@ const CaseStudySection: React.FC<{ language: Language }> = ({ language }) => {
                 {study.followers && (
                   <>
                     {', '}
-                    <strong className="font-bold">{study.followers}</strong>{' '}
+                    {study.profileUrl ? (
+                      <a
+                        href={study.profileUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="transition-colors hover:text-black"
+                      >
+                        {study.followers}
+                      </a>
+                    ) : (
+                      study.followers
+                    )}{' '}
                     Follower
                   </>
                 )}
@@ -155,7 +168,9 @@ const CaseStudySection: React.FC<{ language: Language }> = ({ language }) => {
             <img
               src={study.image}
               alt={`${study.brand} Kampagne`}
-              className="h-auto w-full max-w-sm rounded-[4px] border border-zinc-200 lg:w-80"
+              width={study.imageWidth}
+              height={study.imageHeight}
+              className="h-auto w-full max-w-sm rounded-[4px] border border-zinc-200 object-contain lg:w-80"
             />
           ) : (
             <Placeholder

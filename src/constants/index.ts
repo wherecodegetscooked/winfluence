@@ -97,8 +97,11 @@ export interface CaseStudy {
   brand: string;
   body: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   attribution?: string;
   followers?: string;
+  profileUrl?: string;
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -112,8 +115,11 @@ export const caseStudies: CaseStudy[] = [
     brand: 'Joshua Tyrell',
     body: 'First of all, I wanted to say that I think your concept is really great!',
     image: '/case-studies/joshua-tyrell.png',
+    imageWidth: 567,
+    imageHeight: 791,
     attribution: 'JOSHUA TYRELL',
     followers: '645.000',
+    profileUrl: 'https://www.instagram.com/joshtyrell/?hl=de#',
   },
   {
     brand: 'THE CAPRA',
