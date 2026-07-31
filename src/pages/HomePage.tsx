@@ -64,13 +64,13 @@ const Hero: React.FC<{ language: Language }> = ({ language }) => (
         </p>
         <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
           {/* Gleich breite Rasterzellen sorgen unabhängig vom Logoformat für exakte Abstände. */}
-          <div className="grid w-full grid-cols-3 items-center gap-x-5 gap-y-6 sm:w-[468px] sm:grid-cols-6">
+          <div className="grid w-full grid-cols-3 items-center gap-x-5 gap-y-6 sm:w-[702px] sm:shrink-0 sm:grid-cols-6 sm:gap-x-[30px]">
             {brandLogos.map((b) => (
-              <div key={b.name} className="flex h-12 min-w-0 items-center justify-center">
+              <div key={b.name} className="flex h-[72px] min-w-0 items-center justify-center">
                 <img
                   src={b.src}
                   alt={b.name}
-                  className="block max-h-10 w-full max-w-full object-contain"
+                  className="block max-h-[60px] w-full max-w-full object-contain"
                 />
               </div>
             ))}
