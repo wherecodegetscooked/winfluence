@@ -11,7 +11,7 @@ import type { Language } from '../App';
 
 const caseStudyTranslations: Record<string, string> = {
   "Levi's":
-    'winfluence hat den Nachweis erbracht, dass viele Micro-Influencer mit einer hohen Engagement-Rate besser performen, als ein Makro-Influencer. Die Abwicklung war einfach und wir erreichten mit einem kleine Budget eine spektakuläre Reichweite bei der Gen-Z.',
+    'winfluence hat den Nachweis erbracht, dass viele Micro-Influencer mit einer hohen Engagement-Rate besser performen, als ein Makro-Influencer. Die Abwicklung war einfach und wir erreichten mit einem kleinen Budget eine spektakuläre Reichweite bei der Gen-Z.',
   DillySocks:
     'DillySocks arbeitete mit einem Cluster von Lifestyle-Creators zusammen, um die saisonale Kollektion zu lancieren. Der automatisierte Briefing-Prozess verband innerhalb von 48 Stunden 24 Creators mit der Marke und lieferte authentischen Content für Instagram und TikTok.',
   'Joshua Tyrell':
