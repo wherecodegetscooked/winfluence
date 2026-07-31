@@ -25,10 +25,10 @@ export const siteConfig = {
   },
 
   // Statistik-Wert aus dem Hero.
-  brandsCount: 103,
+  brandsCount: 109,
 } as const;
 
-// Marken-Logos im Hero-Streifen ("Some of the 103 brands we work with…").
+// Marken-Logos im Hero-Streifen ("Some of the 109 brands we work with…").
 export const brandLogos: { name: string; src: string }[] = [
   { name: 'abeauty', src: '/Brand Logos_1024x1024/abeauty_1024x1024.png' },
   { name: 'DillySocks', src: '/Brand Logos_1024x1024/Dillysocks_1024x1024.png' },
