@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ navigateTo, language }) => {
 
         <div className="flex items-center gap-1 text-zinc-500 md:ml-auto">
           <SocialLink
-            href="https://www.linkedin.com/company/unuh-ag/?viewAsMember=true"
+            href="https://www.linkedin.com/company/winfluence-net/?viewAsMember=true"
             label="LinkedIn"
           >
             <Linkedin size={18} strokeWidth={1.75} />
