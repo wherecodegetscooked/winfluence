@@ -51,7 +51,7 @@ const Hero: React.FC<{ language: Language }> = ({ language }) => (
         <h1 className="mt-16 md:mt-24 tracking-tight">
           Connecting
           <br />
-          brands with creators
+          Brands with Influencers
         </h1>
         <p className="mt-10 text-zinc-500 leading-relaxed max-w-md">
           {language === 'de'
