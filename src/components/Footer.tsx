@@ -8,8 +8,9 @@ interface FooterProps {
   language: Language;
 }
 
-// Genau die vier Footer-Links (Reihenfolge wie gewuenscht).
+// Footer-Links in der gewuenschten Reihenfolge.
 const footerLinks: { page: Page; label: Record<Language, string> }[] = [
+  { page: 'impressum', label: { de: 'Impressum', en: 'Imprint' } },
   { page: 'datenschutz', label: { de: 'Datenschutzerklärung', en: 'Privacy Policy' } },
   { page: 'nutzungsbedingungen', label: { de: 'Nutzungsbedingungen', en: 'Terms of Use' } },
   { page: 'about', label: { de: 'Über winfluence', en: 'About winfluence' } },

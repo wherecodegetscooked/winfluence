@@ -71,7 +71,7 @@ const App: React.FC = () => {
       case 'about': return <AboutPage />;
       case 'contact': return <ContactPage />;
       case 'vision': return <VisionPage language={language} />;
-      case 'impressum': return <ImprintPage />;
+      case 'impressum': return <ImprintPage language={language} />;
       case 'datenschutz': return <PrivacyPage language={language} />;
       case 'nutzungsbedingungen': return <TermsPage language={language} />;
       default: return <HomePage language={language} />;
