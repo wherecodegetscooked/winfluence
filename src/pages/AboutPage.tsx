@@ -13,7 +13,6 @@ const team = [
     name: 'Benno Burkhardt',
     role: 'CIO, Co-Founder',
     image: '/team/benno.png',
-    phone: '+41 79 277 01 22',
     email: 'benno@winfluence.net',
   },
   {
@@ -48,12 +47,14 @@ export const AboutPage: React.FC = () => (
           <div>
             <strong className="block font-medium text-zinc-900">{member.name}</strong>
             <span className="block">{member.role}</span>
-            <a
-              className="block hover:text-zinc-900 hover:underline"
-              href={`tel:${member.phone.replace(/\s/g, '')}`}
-            >
-              {member.phone}
-            </a>
+            {member.phone && (
+              <a
+                className="block hover:text-zinc-900 hover:underline"
+                href={`tel:${member.phone.replace(/\s/g, '')}`}
+              >
+                {member.phone}
+              </a>
+            )}
             <a
               className="block break-all hover:text-zinc-900 hover:underline"
               href={`mailto:${member.email}`}
