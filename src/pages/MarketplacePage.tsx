@@ -179,7 +179,7 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({ language }) =>
         ) : (
           <>
             <div className="mt-20 hidden xl:mt-24 xl:block">
-              <div className="grid grid-cols-[1.2fr_1.65fr_1.05fr_.8fr_.65fr_1.15fr_1fr_160px] gap-x-6 border-b border-zinc-200 pb-4 text-[17px] font-medium text-zinc-500">
+              <div className="grid grid-cols-[1.5fr_1.35fr_1.05fr_.8fr_.65fr_1.15fr_1fr_160px] gap-x-6 border-b border-zinc-200 pb-4 text-[17px] font-medium text-zinc-500">
                 <span>{copy.brand}</span>
                 <span>{copy.campaign}</span>
                 <span>{copy.category}</span>
@@ -212,10 +212,10 @@ const CampaignRow: React.FC<{ campaign: Campaign; language: Language; now: numbe
   const countdown = getCountdown(campaign.applyTill, now);
 
   return (
-    <article className="grid min-h-[138px] grid-cols-[1.2fr_1.65fr_1.05fr_.8fr_.65fr_1.15fr_1fr_160px] items-center gap-x-6 border-b border-zinc-200 py-7 text-[18px]">
+    <article className="grid min-h-[138px] grid-cols-[1.5fr_1.35fr_1.05fr_.8fr_.65fr_1.15fr_1fr_160px] items-center gap-x-6 border-b border-zinc-200 py-7 text-[18px]">
       <div className="flex min-w-0 items-center gap-5">
         <img src={campaign.campaignVisualUrl} alt="" className="h-14 w-14 shrink-0 rounded-full object-cover" />
-        <span className="break-words font-normal leading-snug">{campaign.brandName}</span>
+        <span className="whitespace-nowrap font-normal">{campaign.brandName}</span>
       </div>
       <p className="truncate font-normal" title={campaign.title}>{campaign.title}</p>
       <p>{formatIndustry(campaign.industry, language)}</p>
@@ -241,7 +241,7 @@ const CampaignCard: React.FC<{ campaign: Campaign; language: Language; now: numb
         <img src={campaign.campaignVisualUrl} alt="" className="h-16 w-16 shrink-0 rounded-full object-cover" />
         <div className="min-w-0">
           <p className="text-sm text-zinc-500">{copy.brand}</p>
-          <p className="break-words text-lg font-normal leading-snug">{campaign.brandName}</p>
+          <p className="whitespace-nowrap text-lg font-normal">{campaign.brandName}</p>
         </div>
       </div>
 
