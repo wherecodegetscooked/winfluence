@@ -4,6 +4,7 @@ import {
   HomePage,
   BrandsPage,
   MarketplacePage,
+  SiaPage,
   AboutPage,
   ContactPage,
   VisionPage,
@@ -20,6 +21,7 @@ export type Language = 'en' | 'de';
 const routablePages: Page[] = [
   'brands',
   'marktplatz',
+  'sia',
   'about',
   'contact',
   'vision',
@@ -36,7 +38,7 @@ const App: React.FC = () => {
   // Pfad -> Page. Neue Route hier ergaenzen.
   useEffect(() => {
     const handleLocationChange = () => {
-      const seg = window.location.pathname.replace(/^\//, '') as Page;
+      const seg = window.location.pathname.replace(/^\//, '').replace(/\/$/, '').toLowerCase() as Page;
       setCurrentPage(routablePages.includes(seg) ? seg : 'home');
       window.scrollTo(0, 0);
     };
@@ -48,8 +50,12 @@ const App: React.FC = () => {
 
   // Minimaler Title + Canonical pro Seite. Bei Bedarf erweitern.
   useEffect(() => {
-    const path = currentPage === 'home' ? '/' : `/${currentPage}`;
-    document.title = currentPage === 'home' ? siteConfig.name : `${currentPage} | ${siteConfig.name}`;
+    const path = currentPage === 'home' ? '/' : currentPage === 'sia' ? '/SIA' : `/${currentPage}`;
+    document.title = currentPage === 'home'
+      ? siteConfig.name
+      : currentPage === 'sia'
+        ? `Swiss Influence Award 2026 | ${siteConfig.name}`
+        : `${currentPage} | ${siteConfig.name}`;
     const canonicalEl = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (canonicalEl) canonicalEl.href = `${siteConfig.url}${path}`;
   }, [currentPage]);
@@ -71,6 +77,7 @@ const App: React.FC = () => {
     switch (currentPage) {
       case 'brands': return <BrandsPage language={language} />;
       case 'marktplatz': return <MarketplacePage language={language} />;
+      case 'sia': return <SiaPage language={language} />;
       case 'about': return <AboutPage />;
       case 'contact': return <ContactPage />;
       case 'vision': return <VisionPage language={language} />;
