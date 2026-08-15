@@ -3,6 +3,7 @@ import { Navbar, Footer } from './components';
 import {
   HomePage,
   BrandsPage,
+  MarketplacePage,
   AboutPage,
   ContactPage,
   VisionPage,
@@ -18,6 +19,7 @@ export type Language = 'en' | 'de';
 // Gueltige Pfad-Segmente -> Page.
 const routablePages: Page[] = [
   'brands',
+  'marktplatz',
   'about',
   'contact',
   'vision',
@@ -68,6 +70,7 @@ const App: React.FC = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'brands': return <BrandsPage language={language} />;
+      case 'marktplatz': return <MarketplacePage language={language} />;
       case 'about': return <AboutPage />;
       case 'contact': return <ContactPage />;
       case 'vision': return <VisionPage language={language} />;

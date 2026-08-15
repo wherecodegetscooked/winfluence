@@ -4,6 +4,7 @@
 export type Page =
   | 'home'
   | 'brands'
+  | 'marktplatz'
   | 'about'
   | 'contact'
   | 'vision'

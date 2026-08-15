@@ -1,5 +1,6 @@
 export { HomePage } from './HomePage';
 export { BrandsPage } from './BrandsPage';
+export { MarketplacePage } from './MarketplacePage';
 export { AboutPage } from './AboutPage';
 export { ContactPage } from './ContactPage';
 export { VisionPage } from './VisionPage';
