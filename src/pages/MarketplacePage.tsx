@@ -159,7 +159,7 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({ language }) =>
   return (
     <section className="pb-24 pt-32 md:pb-32 md:pt-40">
       <div className="mx-auto max-w-[1600px] px-6 lg:px-8">
-        <h1 className="text-[56px] text-zinc-500 sm:text-[72px] md:text-[84px]">{copy.title}</h1>
+        <h1>{copy.title}</h1>
 
         {isLoading ? (
           <p className="mt-20 text-zinc-500">{copy.loading}</p>
