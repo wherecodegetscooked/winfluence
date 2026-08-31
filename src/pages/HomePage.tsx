@@ -44,7 +44,7 @@ const Hero: React.FC<{ language: Language }> = ({ language }) => (
       {/* Text-Spalte */}
       <div className="ml-[38px] max-w-xl lg:max-w-md">
         <img
-          src="/winfluence_logo.png"
+          src="/winfluence_logo_billard_animation.gif"
           alt="winfluence"
           className="-ml-[38px] h-7 w-auto md:h-9"
         />
