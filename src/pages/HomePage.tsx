@@ -46,7 +46,7 @@ const Hero: React.FC<{ language: Language }> = ({ language }) => (
         <img
           src="/winfluence_logo_billard_animation.gif"
           alt="winfluence"
-          className="-ml-[38px] h-7 w-auto md:h-9"
+          className="-ml-[38px] h-[35px] w-auto md:h-[45px]"
         />
         <h1 className="mt-16 md:mt-24 tracking-tight">
           Connecting
