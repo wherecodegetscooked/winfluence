@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ZoomIn } from 'lucide-react';
 import type { Language } from '../App';
 
 const campaignsApiUrl = 'https://rssnbsduduboxlrvpodw.supabase.co/functions/v1/public-campaigns';
@@ -17,6 +18,7 @@ interface Campaign {
   start: string;
   end: string;
   applyTill: string;
+  postType?: string | null;
 }
 
 interface CampaignsResponse {
@@ -65,6 +67,19 @@ const industryLabels: Record<string, Record<Language, string>> = {
 
 const translations = {
   de: {
+    brandCampaign: 'Brand & Kampagne',
+    headline: 'Headline',
+    budgetContent: 'Budget & Content',
+    barterPromo: 'Barter & Promo',
+    schedule: 'Termine',
+    allCreators: 'für alle Creators',
+    contentPiece: 'Content Piece',
+    forCreator: 'für Creator',
+    forFollowers: 'für Follower',
+    applicationPeriod: 'Zeitraum für Bewerbung',
+    publicationPeriod: 'Zeitraum zum Publizieren',
+    notProvided: 'Nicht angegeben',
+    until: 'bis',
     title: 'Marktplatz',
     brand: 'Brand',
     campaign: 'Kampagne',
@@ -94,6 +109,19 @@ const translations = {
     links: 'Links',
   },
   en: {
+    brandCampaign: 'Brand & Campaign',
+    headline: 'Headline',
+    budgetContent: 'Budget & Content',
+    barterPromo: 'Barter & Promo',
+    schedule: 'Dates',
+    allCreators: 'for all creators',
+    contentPiece: 'Content piece',
+    forCreator: 'for creator',
+    forFollowers: 'for followers',
+    applicationPeriod: 'Application period',
+    publicationPeriod: 'Publication period',
+    notProvided: 'Not provided',
+    until: 'until',
     title: 'Marketplace',
     brand: 'Brand',
     campaign: 'Campaign',
@@ -151,7 +179,15 @@ const formatDateRange = (start: string, end: string) => {
   return `${startParts.day}.${startParts.month}.${startParts.year}–${endParts.day}.${endParts.month}.${endParts.year}`;
 };
 
-const formatMoney = (value: number) => `CHF ${Math.round(value)}.–`;
+const formatMoney = (value: number) => `CHF ${new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 }).format(value)}.–`;
+
+const formatContent = (value?: string | null) => value
+  ? value.charAt(0).toUpperCase() + value.slice(1)
+  : '–';
+
+const formatOverviewDate = (value: string) => new Intl.DateTimeFormat('de-CH', {
+  day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'Europe/Zurich',
+}).format(new Date(value));
 
 const formatIndustry = (industry: string | null, language: Language) => {
   if (!industry) return '–';
@@ -202,7 +238,24 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({ language }) =>
         if (!response.ok) throw new Error(`Could not load campaigns: ${response.status}`);
 
         const data: CampaignsResponse = await response.json();
-        setCampaigns(Array.isArray(data.campaigns) ? data.campaigns : []);
+        const items = Array.isArray(data.campaigns) ? data.campaigns : [];
+        setCampaigns(items);
+        setIsLoading(false);
+
+        // The list endpoint does not expose the content format; enrich it from
+        // the existing public detail endpoint without delaying the overview.
+        const details = await Promise.allSettled(items.map(async (campaign) => {
+          const detailResponse = await fetch(`${campaignDetailApiUrl}?id=${encodeURIComponent(campaign.id)}`, { signal: controller.signal });
+          if (!detailResponse.ok) throw new Error('Could not load content format');
+          const detail: CampaignDetailResponse = await detailResponse.json();
+          return { ...campaign, postType: detail.campaign.post_type };
+        }));
+        if (!controller.signal.aborted) {
+          setCampaigns(items.map((campaign, index) => {
+            const result = details[index];
+            return result.status === 'fulfilled' ? result.value : campaign;
+          }));
+        }
       } catch (error) {
         if ((error as DOMException).name !== 'AbortError') setHasError(true);
       } finally {
@@ -278,94 +331,80 @@ export const MarketplacePage: React.FC<MarketplacePageProps> = ({ language }) =>
         ) : campaigns.length === 0 ? (
           <p className="mt-20 text-zinc-500">{copy.empty}</p>
         ) : (
-          <>
-            <div className="mt-20 hidden xl:mt-24 xl:block">
-              <div className="grid grid-cols-[1.5fr_1.35fr_1.05fr_.8fr_.65fr_1.15fr_1fr_160px] gap-x-6 border-b border-zinc-200 pb-4 font-medium text-zinc-500">
-                <span>{copy.brand}</span>
-                <span>{copy.campaign}</span>
-                <span>{copy.category}</span>
-                <span>{copy.budget}</span>
-                <span>{copy.barter}</span>
-                <span>{copy.dates}</span>
-                <span>{copy.applyUntil}</span>
-                <span aria-hidden="true" />
-              </div>
-
-              {campaigns.map((campaign) => (
-                <CampaignRow key={campaign.id} campaign={campaign} language={language} now={now} onShowDetails={showCampaign} />
-              ))}
+          <div className="marketplace-list">
+            <div className="marketplace-guides" aria-hidden="true">
+              <span /><span /><span /><span /><span />
             </div>
-
-            <div className="mt-14 divide-y divide-zinc-200 border-y border-zinc-200 xl:hidden">
-              {campaigns.map((campaign) => (
-                <CampaignCard key={campaign.id} campaign={campaign} language={language} now={now} onShowDetails={showCampaign} />
-              ))}
+            <div className="marketplace-headings" aria-hidden="true">
+              <span>{copy.brandCampaign}</span>
+              <span>{copy.headline}</span>
+              <span>{copy.budgetContent}</span>
+              <span>{copy.barterPromo}</span>
+              <span>{copy.schedule}</span>
             </div>
-          </>
+            {campaigns.map((campaign) => (
+              <CampaignRow key={campaign.id} campaign={campaign} language={language} onShowDetails={showCampaign} />
+            ))}
+          </div>
         )}
       </div>
     </section>
   );
 };
 
-const CampaignRow: React.FC<{ campaign: Campaign; language: Language; now: number; onShowDetails: (id: number) => void }> = ({ campaign, language, now, onShowDetails }) => {
+const CampaignRow: React.FC<{ campaign: Campaign; language: Language; onShowDetails: (id: number) => void }> = ({ campaign, language, onShowDetails }) => {
   const copy = translations[language];
-  const countdown = getCountdown(campaign.applyTill, now);
 
   return (
-    <article className="grid min-h-[138px] grid-cols-[1.5fr_1.35fr_1.05fr_.8fr_.65fr_1.15fr_1fr_160px] items-center gap-x-6 border-b border-zinc-200 py-7">
-      <div className="flex min-w-0 items-center gap-5">
-        <img src={campaign.brandLogoUrl} alt={`${campaign.brandName} logo`} className="h-14 w-14 shrink-0 rounded-full object-contain" />
-        <span className="whitespace-nowrap">{campaign.brandName}</span>
+    <article className="marketplace-row" aria-label={`${campaign.brandName}: ${campaign.title}`}>
+      <div className="marketplace-images">
+        <button
+          type="button"
+          onClick={() => onShowDetails(campaign.id)}
+          className="marketplace-brand"
+          aria-label={`${copy.details}: ${campaign.title}`}
+        >
+          <img src={campaign.brandLogoUrl} alt={campaign.brandName} />
+          <span className="marketplace-magnifier"><ZoomIn size={38} strokeWidth={1.2} /></span>
+        </button>
+        <button
+          type="button"
+          onClick={() => onShowDetails(campaign.id)}
+          className="marketplace-visual"
+          aria-label={`${copy.details}: ${campaign.title}`}
+        >
+          <img src={campaign.campaignVisualUrl} alt={campaign.title} loading="lazy" />
+        </button>
       </div>
-      <p className="truncate" title={campaign.title}>{campaign.title}</p>
-      <p>{formatIndustry(campaign.industry, language)}</p>
-      <p className="whitespace-nowrap">{formatMoney(campaign.budget)}</p>
-      <p className="whitespace-nowrap">{formatMoney(campaign.barter)}</p>
-      <p className="whitespace-nowrap">{formatDateRange(campaign.start, campaign.end)}</p>
-      <div>
-        <p>{formatDate(campaign.applyTill)}</p>
-        <p className="mt-0.5 whitespace-nowrap font-semibold text-zinc-950">{countdown ?? copy.expired}</p>
+      <div className="marketplace-cell marketplace-headline">
+        <span className="marketplace-mobile-label">{copy.headline}</span>
+        <h2>{campaign.title}</h2>
       </div>
-      <DetailButton language={language} onClick={() => onShowDetails(campaign.id)} />
+      <div className="marketplace-cell">
+        <span className="marketplace-mobile-label">{copy.budgetContent}</span>
+        <OverviewValue value={formatMoney(campaign.budget)} label={copy.allCreators} />
+        <OverviewValue value={formatContent(campaign.postType)} label={copy.contentPiece} missing={!campaign.postType ? copy.notProvided : undefined} />
+      </div>
+      <div className="marketplace-cell">
+        <span className="marketplace-mobile-label">{copy.barterPromo}</span>
+        <OverviewValue value={formatMoney(campaign.barter)} label={copy.forCreator} />
+        <OverviewValue value="–" label={copy.forFollowers} missing={copy.notProvided} />
+      </div>
+      <div className="marketplace-cell marketplace-dates">
+        <span className="marketplace-mobile-label">{copy.schedule}</span>
+        <OverviewValue value={`${copy.until} ${formatOverviewDate(campaign.applyTill)}`} label={copy.applicationPeriod} />
+        <OverviewValue value={`${formatOverviewDate(campaign.start)}–${formatOverviewDate(campaign.end)}`} label={copy.publicationPeriod} />
+      </div>
     </article>
   );
 };
 
-const CampaignCard: React.FC<{ campaign: Campaign; language: Language; now: number; onShowDetails: (id: number) => void }> = ({ campaign, language, now, onShowDetails }) => {
-  const copy = translations[language];
-  const countdown = getCountdown(campaign.applyTill, now);
-
-  return (
-    <article className="py-8">
-      <div className="flex items-center gap-4">
-        <img src={campaign.brandLogoUrl} alt={`${campaign.brandName} logo`} className="h-16 w-16 shrink-0 rounded-full object-contain" />
-        <div className="min-w-0">
-          <p className="text-sm text-zinc-500">{copy.brand}</p>
-          <p className="whitespace-nowrap">{campaign.brandName}</p>
-        </div>
-      </div>
-
-      <h2 className="mt-6 text-2xl font-normal leading-snug">{campaign.title}</h2>
-
-      <dl className="mt-6 grid grid-cols-2 gap-x-5 gap-y-5">
-        <CampaignDetail label={copy.category} value={formatIndustry(campaign.industry, language)} />
-        <CampaignDetail label={copy.dates} value={formatDateRange(campaign.start, campaign.end)} />
-        <CampaignDetail label={copy.budget} value={formatMoney(campaign.budget)} />
-        <CampaignDetail label={copy.barter} value={formatMoney(campaign.barter)} />
-        <CampaignDetail
-          label={copy.applyUntil}
-          value={formatDate(campaign.applyTill)}
-          secondaryValue={countdown ?? copy.expired}
-        />
-      </dl>
-
-      <div className="mt-7">
-        <DetailButton language={language} onClick={() => onShowDetails(campaign.id)} />
-      </div>
-    </article>
-  );
-};
+const OverviewValue: React.FC<{ value: string; label: string; missing?: string }> = ({ value, label, missing }) => (
+  <div className="marketplace-value">
+    <p aria-label={missing} title={missing}>{value}</p>
+    <p className="marketplace-description">{label}</p>
+  </div>
+);
 
 const CampaignDetail: React.FC<{ label: string; value: string; secondaryValue?: string }> = ({ label, value, secondaryValue }) => (
   <div>
@@ -375,16 +414,6 @@ const CampaignDetail: React.FC<{ label: string; value: string; secondaryValue?: 
       {secondaryValue && <span className="block font-semibold text-zinc-950">{secondaryValue}</span>}
     </dd>
   </div>
-);
-
-const DetailButton: React.FC<{ language: Language; onClick: () => void }> = ({ language, onClick }) => (
-  <button
-    type="button"
-    onClick={onClick}
-    className="inline-flex min-h-14 w-full items-center justify-center rounded-full border border-zinc-300 px-8 text-zinc-800 transition-colors hover:border-accent hover:text-accent"
-  >
-    {translations[language].details}
-  </button>
 );
 
 const CampaignDetailPage: React.FC<{ campaignId: number; language: Language; now: number; onBack: () => void }> = ({ campaignId, language, now, onBack }) => {
