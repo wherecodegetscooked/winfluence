@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ZoomIn } from 'lucide-react';
+import { Clapperboard, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import type { Language } from '../App';
 
 const campaignsApiUrl = 'https://rssnbsduduboxlrvpodw.supabase.co/functions/v1/public-campaigns';
@@ -67,6 +67,13 @@ const industryLabels: Record<string, Record<Language, string>> = {
 
 const translations = {
   de: {
+    campaignBudget: 'Kampagnenbudget für alle Creators',
+    creatorBarter: 'Barter für Creator',
+    followerPromo: 'Promo für Follower',
+    calendar: 'Kalender',
+    deliveryPeriod: 'Zeitraum für den Produkterhalt',
+    previousMonths: 'Vorherige Monate',
+    nextMonths: 'Nächste Monate',
     brandCampaign: 'Brand & Kampagne',
     headline: 'Headline',
     budgetContent: 'Budget & Content',
@@ -88,7 +95,7 @@ const translations = {
     barter: 'Barter',
     dates: 'Start & Ende',
     applyUntil: 'bewerben bis',
-    apply: 'bewerben',
+    apply: 'Bewerben',
     details: 'Details',
     overview: 'Zurück zur Übersicht',
     expired: 'abgelaufen',
@@ -109,6 +116,13 @@ const translations = {
     links: 'Links',
   },
   en: {
+    campaignBudget: 'Campaign budget for all creators',
+    creatorBarter: 'Barter for creator',
+    followerPromo: 'Promo for followers',
+    calendar: 'Calendar',
+    deliveryPeriod: 'Product delivery period',
+    previousMonths: 'Previous months',
+    nextMonths: 'Next months',
     brandCampaign: 'Brand & Campaign',
     headline: 'Headline',
     budgetContent: 'Budget & Content',
@@ -130,7 +144,7 @@ const translations = {
     barter: 'Barter',
     dates: 'Start & End',
     applyUntil: 'apply until',
-    apply: 'apply',
+    apply: 'Apply',
     details: 'Details',
     overview: 'Back to overview',
     expired: 'closed',
@@ -152,33 +166,6 @@ const translations = {
   },
 } satisfies Record<Language, Record<string, string>>;
 
-const dateParts = (value: string) => {
-  const parts = new Intl.DateTimeFormat('de-CH', {
-    day: 'numeric',
-    month: 'numeric',
-    year: 'numeric',
-    timeZone: 'Europe/Zurich',
-  }).formatToParts(new Date(value));
-
-  return Object.fromEntries(parts.map(({ type, value: partValue }) => [type, partValue]));
-};
-
-const formatDate = (value: string) => {
-  const parts = dateParts(value);
-  return `${parts.day}.${parts.month}.${parts.year}`;
-};
-
-const formatDateRange = (start: string, end: string) => {
-  const startParts = dateParts(start);
-  const endParts = dateParts(end);
-
-  if (startParts.year === endParts.year) {
-    return `${startParts.day}.${startParts.month}.–${endParts.day}.${endParts.month}.${endParts.year}`;
-  }
-
-  return `${startParts.day}.${startParts.month}.${startParts.year}–${endParts.day}.${endParts.month}.${endParts.year}`;
-};
-
 const formatMoney = (value: number) => `CHF ${new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 }).format(value)}.–`;
 
 const formatContent = (value?: string | null) => value
@@ -197,19 +184,6 @@ const formatIndustry = (industry: string | null, language: Language) => {
     .split('_')
     .map((part) => `${part.charAt(0).toUpperCase()}${part.slice(1)}`)
     .join(' ');
-};
-
-const getCountdown = (deadline: string, now: number) => {
-  const difference = new Date(deadline).getTime() - now;
-  if (difference <= 0) return null;
-
-  const totalSeconds = Math.floor(difference / 1000);
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${days}d:${String(hours).padStart(2, '0')}h:${String(minutes).padStart(2, '0')}m:${String(seconds).padStart(2, '0')}`;
 };
 
 const getCampaignIdFromUrl = () => {
@@ -406,13 +380,10 @@ const OverviewValue: React.FC<{ value: string; label: string; missing?: string }
   </div>
 );
 
-const CampaignDetail: React.FC<{ label: string; value: string; secondaryValue?: string }> = ({ label, value, secondaryValue }) => (
-  <div>
-    <dt className="text-sm text-zinc-500">{label}</dt>
-    <dd className="mt-0.5 text-zinc-800">
-      {value}
-      {secondaryValue && <span className="block font-semibold text-zinc-950">{secondaryValue}</span>}
-    </dd>
+const CampaignDetail: React.FC<{ label: string; value: React.ReactNode }> = ({ label, value }) => (
+  <div className="campaign-detail-field">
+    <dt>{label}</dt>
+    <dd>{value}</dd>
   </div>
 );
 
@@ -475,110 +446,117 @@ const CampaignDetailPage: React.FC<{ campaignId: number; language: Language; now
 
 const CampaignDetailContent: React.FC<{ campaign: CampaignDetailData; language: Language; now: number }> = ({ campaign, language, now }) => {
   const copy = translations[language];
-  const countdown = getCountdown(campaign.apply_till, now);
-
-  const narrativeDetails = [
-    [copy.product, campaign.product],
-    [copy.goal, campaign.goal],
-    [copy.targetGroup, campaign.targetgroup],
-    [copy.keyMessage, campaign.key_message],
-    [copy.briefing, campaign.briefing],
-    [copy.content, campaign.post_type],
-    [copy.requirements, campaign.requirements],
-  ].filter((detail): detail is [string, string] => Boolean(detail[1]));
-
+  const isExpired = new Date(campaign.apply_till).getTime() <= now;
   const links = campaign.link_list?.split(/[\n,]+/).map((link) => link.trim()).filter(Boolean) ?? [];
+  const safeLinks = links.flatMap((link) => {
+    try {
+      const url = new URL(/^https?:\/\//i.test(link) ? link : `https://${link}`);
+      return url.protocol === 'https:' || url.protocol === 'http:' ? [{ label: link, href: url.href }] : [];
+    } catch { return []; }
+  });
 
   return (
-    <article className="mt-12">
-      <div className="grid gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-start">
-        <img src={campaign.campaign_visual_url} alt="" className="aspect-[4/3] w-full rounded-3xl object-cover" />
+    <article className="campaign-detail">
+      <header className="campaign-detail-header">
+        <img src={campaign.brand_logo_url} alt={campaign.brand_name} className="campaign-detail-logo" />
+        <p className="campaign-detail-label">{copy.campaign}</p>
+        <h1>{campaign.title}</h1>
+      </header>
 
-        <div>
-          <div className="flex items-center gap-4">
-            <img src={campaign.brand_logo_url} alt={`${campaign.brand_name} logo`} className="h-16 w-16 rounded-full object-contain" />
-            <p>{campaign.brand_name}</p>
-          </div>
-          <h1 className="mt-7">{campaign.title}</h1>
-          <p className="mt-5 text-zinc-500">{formatIndustry(campaign.industry, language)}</p>
-
-          <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 border-y border-zinc-200 py-7">
-            <CampaignDetail label={copy.budget} value={formatMoney(campaign.budget)} />
-            <CampaignDetail label={copy.barter} value={formatMoney(campaign.barter_value)} />
-            <CampaignDetail label={copy.dates} value={formatDateRange(campaign.start, campaign.ende)} />
-            <CampaignDetail label={copy.applyUntil} value={formatDate(campaign.apply_till)} secondaryValue={countdown ?? copy.expired} />
+      <div className="campaign-detail-columns">
+        <div className="campaign-detail-story">
+          <img src={campaign.campaign_visual_url} alt={campaign.title} className="campaign-detail-visual" />
+          <dl className="campaign-detail-fields">
+            <CampaignDetail label={copy.brand} value={campaign.brand_name} />
+            <CampaignDetail label={copy.category} value={formatIndustry(campaign.industry, language)} />
+            {safeLinks.length > 0 && <CampaignDetail label={copy.links} value={safeLinks.map((link) => (
+              <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+            ))} />}
+            {campaign.hashtags && <CampaignDetail label={copy.hashtags} value={campaign.hashtags} />}
+            {campaign.briefing && <CampaignDetail label={copy.briefing} value={campaign.briefing} />}
+            {campaign.product && <CampaignDetail label={copy.product} value={campaign.product} />}
+            {campaign.key_message && <CampaignDetail label={copy.keyMessage} value={campaign.key_message} />}
+            {campaign.requirements && <CampaignDetail label={copy.requirements} value={campaign.requirements} />}
           </dl>
+        </div>
 
-          {campaign.barter_desc && (
-            <div className="mt-7">
-              <h2 className="text-2xl">{copy.compensation}</h2>
-              <p className="mt-3 whitespace-pre-line text-zinc-700">{campaign.barter_desc}</p>
-            </div>
-          )}
-
-          <div className="mt-8 max-w-[220px]">
-            <ApplyButton language={language} isExpired={!countdown} />
-          </div>
+        <div className="campaign-detail-facts">
+          <dl className="campaign-detail-fields">
+            <CampaignDetail label={copy.campaignBudget} value={formatMoney(campaign.budget)} />
+            <CampaignDetail label={copy.creatorBarter} value={<>{formatMoney(campaign.barter_value)}{campaign.barter_desc && <span className="campaign-detail-note">{campaign.barter_desc}</span>}</>} />
+            <CampaignDetail label={copy.followerPromo} value={<span title={copy.notProvided}>–</span>} />
+            <CampaignDetail label={copy.contentPiece} value={<span className="campaign-detail-content-type">{campaign.post_type?.toLowerCase() === 'reel' && <Clapperboard size={22} strokeWidth={1.5} aria-hidden="true" />}{formatContent(campaign.post_type)}</span>} />
+            <CampaignDetail label={copy.targetGroup} value={campaign.targetgroup || '–'} />
+            <CampaignDetail label={copy.goal} value={campaign.goal || '–'} />
+          </dl>
+          <CampaignCalendar key={campaign.id} campaign={campaign} language={language} />
         </div>
       </div>
-
-      {narrativeDetails.length > 0 && (
-        <div className="mt-16 grid gap-x-12 gap-y-10 border-t border-zinc-200 pt-12 md:grid-cols-2">
-          {narrativeDetails.map(([label, value]) => (
-            <section key={label}>
-              <h2 className="text-2xl">{label}</h2>
-              <p className="mt-3 whitespace-pre-line text-zinc-700">{value}</p>
-            </section>
-          ))}
-        </div>
-      )}
-
-      {(campaign.hashtags || links.length > 0) && (
-        <div className="mt-12 grid gap-x-12 gap-y-8 border-t border-zinc-200 pt-10 md:grid-cols-2">
-          {campaign.hashtags && (
-            <section>
-              <h2 className="text-2xl">{copy.hashtags}</h2>
-              <p className="mt-3 text-zinc-700">{campaign.hashtags}</p>
-            </section>
-          )}
-          {links.length > 0 && (
-            <section>
-              <h2 className="text-2xl">{copy.links}</h2>
-              <div className="mt-3 flex flex-col items-start gap-2">
-                {links.map((link) => (
-                  <a key={link} href={link} target="_blank" rel="noopener noreferrer" className="break-all text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-accent">
-                    {link}
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-      )}
+      <div className="campaign-detail-action"><ApplyButton language={language} isExpired={isExpired} /></div>
     </article>
+  );
+};
+
+// Compare calendar days in the campaign's Swiss timezone, independently of the viewer's timezone.
+const calendarDay = (value: string) => {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Europe/Zurich',
+  }).formatToParts(new Date(value));
+  const part = (type: string) => Number(parts.find((item) => item.type === type)?.value);
+  return Date.UTC(part('year'), part('month') - 1, part('day'));
+};
+
+const CampaignCalendar: React.FC<{ campaign: CampaignDetailData; language: Language }> = ({ campaign, language }) => {
+  const copy = translations[language];
+  const deadline = calendarDay(campaign.apply_till);
+  const start = calendarDay(campaign.start);
+  const end = calendarDay(campaign.ende);
+  const [offset, setOffset] = useState(0);
+  const initialMonth = new Date(Math.min(deadline, start));
+  const locale = language === 'de' ? 'de-CH' : 'en-GB';
+  const weekdays = language === 'de' ? ['MO', 'DI', 'MI', 'DO', 'FR', 'SA', 'SO'] : ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+  const fullDate = (day: number) => new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' }).format(day);
+  const month = (index: number) => {
+    const first = new Date(Date.UTC(initialMonth.getUTCFullYear(), initialMonth.getUTCMonth() + offset + index, 1));
+    const leading = (first.getUTCDay() + 6) % 7;
+    const days = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate();
+    const title = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(first);
+    const cells = Array.from({ length: Math.ceil((leading + days) / 7) * 7 }, (_, i) => {
+      const day = i - leading + 1;
+      if (day < 1 || day > days) return <td key={i} />;
+      const date = Date.UTC(first.getUTCFullYear(), first.getUTCMonth(), day);
+      const phases = [date === deadline ? copy.applyUntil : '', date >= start && date <= end ? copy.publicationPeriod : ''].filter(Boolean);
+      return <td key={i}><span className={`${date >= start && date <= end ? 'campaign-day-publication' : ''} ${date === deadline ? 'campaign-day-application' : ''}`} title={[fullDate(date), ...phases].join(' · ')} aria-label={[fullDate(date), ...phases].join(' · ')}>{day}</span></td>;
+    });
+    return <table key={title} className="campaign-calendar-month">
+      <caption>{title}</caption>
+      <thead><tr>{weekdays.map((day) => <th key={day} scope="col">{day}</th>)}</tr></thead>
+      <tbody>{Array.from({ length: cells.length / 7 }, (_, week) => <tr key={week}>{cells.slice(week * 7, week * 7 + 7)}</tr>)}</tbody>
+    </table>;
+  };
+  return (
+    <section className="campaign-calendar" aria-label={copy.calendar}>
+      <div className="campaign-calendar-heading">
+        <h2>{copy.calendar}</h2>
+        <div className="campaign-calendar-controls">
+          <button type="button" onClick={() => setOffset((value) => value - 1)} aria-label={copy.previousMonths}><ChevronLeft size={18} /></button>
+          <button type="button" onClick={() => setOffset((value) => value + 1)} aria-label={copy.nextMonths}><ChevronRight size={18} /></button>
+        </div>
+      </div>
+      <div className="campaign-calendar-months" aria-live="polite">{month(0)}{month(1)}</div>
+      <ul className="campaign-calendar-legend">
+        <li><span className="campaign-day-application" />{copy.applyUntil}: {fullDate(deadline)}</li>
+        <li><span className="campaign-day-delivery" />{copy.deliveryPeriod}: {copy.notProvided}</li>
+        <li><span className="campaign-day-publication" />{copy.publicationPeriod}: {fullDate(start)} – {fullDate(end)}</li>
+      </ul>
+    </section>
   );
 };
 
 const ApplyButton: React.FC<{ language: Language; isExpired: boolean }> = ({ language, isExpired }) => {
   const copy = translations[language];
-  const className = 'inline-flex min-h-14 w-full items-center justify-center rounded-full border px-8 transition-colors';
-
   if (isExpired) {
-    return (
-      <span className={`${className} cursor-not-allowed border-zinc-200 text-zinc-400`} aria-disabled="true">
-        {copy.expired}
-      </span>
-    );
+    return <span className="campaign-apply campaign-apply-expired" aria-disabled="true">{copy.expired}</span>;
   }
-
-  return (
-    <a
-      href={applyUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${className} border-zinc-300 text-zinc-800 hover:border-accent hover:text-accent`}
-    >
-      {copy.apply}
-    </a>
-  );
+  return <a href={applyUrl} target="_blank" rel="noopener noreferrer" className="campaign-apply">{copy.apply}</a>;
 };

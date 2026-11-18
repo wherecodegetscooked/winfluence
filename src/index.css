@@ -171,3 +171,66 @@
 @media (prefers-reduced-motion: no-preference) {
   .marketplace-magnifier { transition: color 150ms; }
 }
+
+/* Campaign detail follows the marketplace reference, with a shared title above two columns. */
+.campaign-detail { margin-top: 42px; }
+.campaign-detail-header { margin-bottom: 44px; }
+.campaign-detail-logo { width: 110px; height: 110px; border: 1px solid #c9c9c9; border-radius: 50%; object-fit: contain; margin-bottom: 26px; }
+.campaign-detail-label, .campaign-detail-field dt, .campaign-calendar-heading h2 { color: #929292; font-size: 16px; line-height: 1.4; }
+.campaign-detail-header h1 { margin-top: 8px; font-size: 34px; overflow-wrap: anywhere; }
+.campaign-detail-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); }
+.campaign-detail-story { padding-right: 54px; }
+.campaign-detail-visual { width: 100%; aspect-ratio: 1; border-radius: 28px; object-fit: cover; }
+.campaign-detail-fields { display: grid; gap: 30px; }
+.campaign-detail-story .campaign-detail-fields { margin-top: 26px; }
+.campaign-detail-field { min-width: 0; }
+.campaign-detail-field dd { margin-top: 4px; font-size: 20px; line-height: 1.5; white-space: pre-line; overflow-wrap: anywhere; }
+.campaign-detail-field dd a { display: block; color: #4199aa; }
+.campaign-detail-field dd a:hover { text-decoration: underline; }
+.campaign-detail-note { display: block; margin-top: 5px; color: #71717a; font-size: 15px; }
+.campaign-detail-content-type { display: inline-flex; align-items: center; gap: 10px; }
+.campaign-detail-facts { border-left: 1px solid #ccc; padding-left: 54px; min-width: 0; }
+.campaign-calendar { margin-top: 30px; }
+.campaign-calendar-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.campaign-calendar-controls { display: flex; gap: 4px; }
+.campaign-calendar-controls button { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 4px; color: #71717a; }
+.campaign-calendar-controls button:hover { background: #f4f4f5; }
+.campaign-calendar-months { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-items: start; }
+.campaign-calendar-month { table-layout: fixed; border-collapse: separate; border-spacing: 0; width: 100%; border: 1px solid #dedede; border-radius: 6px; padding: 5px; font-size: 14px; text-align: center; }
+.campaign-calendar-month caption { border: 1px solid #dedede; border-radius: 6px; margin-bottom: 7px; padding: 2px; font-size: 15px; }
+.campaign-calendar-month th { font-weight: 300; font-size: 12px; padding-bottom: 8px; }
+.campaign-calendar-month td { height: 29px; padding: 0; }
+.campaign-calendar-month td span { display: block; padding: 3px 0; border-radius: 3px; }
+.campaign-day-application { background-color: #acd89e; color: #263322; }
+.campaign-day-delivery { background-color: #ee88c3; color: #3d2031; }
+.campaign-day-publication { background-color: #a1a3c9; color: #252638; }
+.campaign-day-publication.campaign-day-application { background: linear-gradient(135deg, #acd89e 50%, #a1a3c9 50%); }
+.campaign-calendar-legend { display: grid; gap: 4px; margin-top: 12px; padding: 0; list-style: none; color: #71717a; font-size: 12px; line-height: 1.4; }
+.campaign-calendar-legend li { display: flex; align-items: baseline; gap: 7px; }
+.campaign-calendar-legend li > span { display: inline-block; width: 11px; height: 11px; flex-shrink: 0; }
+.campaign-detail-action { display: flex; justify-content: center; margin-top: 42px; }
+.campaign-apply { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 215px; padding: 8px 28px; border-radius: 5px; background: #40a333; color: white; font-size: 20px; font-weight: 500; transition: background-color 150ms; }
+.campaign-apply:hover { background: #34882a; }
+.campaign-apply-expired, .campaign-apply-expired:hover { background: #e4e4e7; color: #71717a; cursor: not-allowed; }
+.campaign-apply:focus-visible, .campaign-calendar-controls button:focus-visible { outline: 2px solid #333; outline-offset: 4px; }
+@media (max-width: 1023px) {
+  .campaign-detail-story { padding-right: 28px; }
+  .campaign-detail-facts { padding-left: 28px; }
+  .campaign-calendar-months { grid-template-columns: 1fr; gap: 16px; }
+}
+@media (max-width: 639px) {
+  .campaign-detail-header { margin-bottom: 28px; }
+  .campaign-detail-header h1 { font-size: 30px; }
+  .campaign-detail-logo { width: 88px; height: 88px; }
+  .campaign-detail-columns { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .campaign-detail-story { padding-right: 0; }
+  .campaign-detail-facts { padding: 30px 0 0; border-left: 0; border-top: 1px solid #ccc; }
+  .campaign-detail-field dd { font-size: 18px; }
+  .campaign-detail-fields { gap: 24px; }
+  .campaign-detail-visual { border-radius: 22px; }
+  .campaign-calendar-months { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .campaign-calendar-month { padding: 3px; font-size: 12px; }
+  .campaign-calendar-month th { font-size: 10px; }
+  .campaign-calendar-month caption { font-size: 13px; }
+  .campaign-apply { width: 100%; }
+}
